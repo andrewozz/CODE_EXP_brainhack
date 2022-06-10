@@ -20,6 +20,9 @@ const Login = ({navigation}) => {
 
     const [email,setOnChangeEmail] = useState("")
     const [password,setOnChangePassword] = useState("")
+    const [isUser, setIsUser] = useState(false)
+    const [isAdmin, setIsAdmin] = useState(false)
+
 
     const navigateToLogin =() =>
     {
@@ -30,6 +33,8 @@ const Login = ({navigation}) => {
     {
         setOnChangeEmail("");
         setOnChangePassword("");
+        setIsAdmin(false);
+        setIsUser(false);
     }
     
     const handleLogin = () =>
@@ -41,14 +46,15 @@ const Login = ({navigation}) => {
             Alert.alert("Please enter valid email or password!");
             clearForm();
             return;
-        }
-        
+        }   
         //send email and pasword to server to authenticate user
-        axios.get("http://10.0.2.2:3005/api/users/login-user",{params: {email: email, password: password}})
+        axios.get("http://10.0.2.2:3005/api/users/login-user",{params: {email: email, password: password, isUser: isUser, isAdmin : isAdmin}})
         .then((res)=> {Alert.alert(`welcome ${res.data.name}`);clearForm();navigation.navigate("Home");})
         .catch((err)=> {clearForm();Alert.alert(err.response.data);console.log(err.message)})
 
     }
+
+
 
     return (
         <ScrollView>
@@ -62,7 +68,7 @@ const Login = ({navigation}) => {
                     style={styles.input}
                     onChangeText={setOnChangeEmail}
                     underlineColorAndroid="transparent"
-                    placeholder = "email"
+                    placeholder = "NRIC"
                     placeholderTextColor="white" 
                     value ={email}
                     />
@@ -76,12 +82,20 @@ const Login = ({navigation}) => {
                     secureTextEntry={true}
                     value = {password}
                     />
+                    <View style ={{marginTop: 20, display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+                        <TouchableOpacity style={[styles.btn,styles.smallerbtn,isUser ? styles.selected:styles.unselected]} onPress={()=>{setIsUser(true);setIsAdmin(false)}}>
+                                <Text style={[styles.btntxt,isUser ? styles.selectedtxt:styles.unselected]}>User</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[styles.btn,styles.smallerbtn,isAdmin ? styles.selected:styles.unselected]} onPress={()=>{setIsAdmin(true);setIsUser(false)}}>
+                                <Text style={[styles.btntxt, isAdmin ? styles.selectedtxt: styles.unselected]}>Admin</Text>
+                        </TouchableOpacity>
+                    </View>
                     <View style={{position:  "relative", paddingVertical: 20,marginTop: 5,}}>
                         <TouchableOpacity style={styles.btn} onPress={handleLogin}>
                             <Text style={styles.btntxt}>Login</Text>
                         </TouchableOpacity>
                     </View>
-                    <Text onPress={navigateToLogin}  style={{textAlign:"center",marginTop: 3, color: "white"}}>Sign up for an account here!</Text>
+                    <Text onPress={()=> {clearForm();navigateToLogin()}}  style={{textAlign:"center",marginTop: 3, color: "white"}}>Sign up for an account here!</Text>
                 </View>
                 
             </SafeAreaView>
@@ -96,14 +110,15 @@ const styles = StyleSheet.create({
         flexDirection: "row",
         justifyContent : "center",
         alignItems: "center",
-        height: windowHeight*0.8,
+        backgroundColor: "#EDECF3",
     },
     card:{
         backgroundColor: "#483d8b",
         width: "75%",
+        marginTop: 100,
+        height: 330,
         borderRadius: 4,
         padding: 25,
-        position: "relative"
     },
     input:
     {
@@ -130,6 +145,20 @@ const styles = StyleSheet.create({
         textAlign: "center",
         color: "white",
         fontSize: 18,
+    },
+    smallerbtn:
+    {
+        width: 120,
+    },
+    selected:
+    {
+        backgroundColor: "white",
+
+    }
+    ,
+    selectedtxt:
+    {
+        color: "#483d8b",
     }
 })
 

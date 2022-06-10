@@ -6,6 +6,7 @@ const rtimeDb = getDatabase();
 const createUserAccount = async (req,res) =>
 {
     console.log( "creating user acct!")
+    console.log(req.body.params)
     const userRef = ref(rtimeDb, "Accounts/");
     const accountDetails = req.body.params;    
     // Perform validations such as no repeat of emails or usernames
@@ -59,8 +60,6 @@ const authenticateUserAccount = (req,res) =>
         if (snapAccountInfo.email === accountDetails.email)
         {
           emailExists = true;
-          console.log(snapAccountInfo.password, snapAccountInfo.email);
-          console.log(snapAccountInfo.password === accountDetails.password )
           //correct pw for email acct
           if (snapAccountInfo.password === accountDetails.password){console.log("success");return res.status(200).json({msg: "successfully logged in!", uid: accountId, name: snapAccountInfo.name});}
           else

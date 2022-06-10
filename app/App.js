@@ -10,32 +10,42 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import Navigator from "./routes/authStack"
+
 import Login from './components/Login';
 import Signup from './components/Signup';
-const windowWidth = Dimensions.get('window').width;
-const windowHeight = Dimensions.get('window').height;
+import Home from './components/Home';
+import Profile from './components/Profile';
+import ScanStore from './components/ScanStore';
+import Storeitems from './components/Storeitems';
+import Storeitem from './components/Storeitem';
+
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+const Stack = createNativeStackNavigator();
 
 
 const App = () => {
 
-
   return (
-    <SafeAreaView style={styles.bg}>
-        <Navigator/>
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator >
+          <Stack.Screen name="Login" component={Login}/>
+          <Stack.Screen name="Signup" component={Signup} />
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Profile" component={Profile} />
+          <Stack.Screen name="Scan Store" component={ScanStore} />
+          <Stack.Screen name="Store Items" component={Storeitems} />
+          <Stack.Screen name="Store Item" component={Storeitem} />
+
+
+
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
 const styles = StyleSheet.create({
-    bg:
-    {
-      backgroundColor: "#F6F7FE",
-      height: windowHeight,
-    },
-    para:{
-      backgroundColor: "#424c8b"
-    }
+
   
 });
 

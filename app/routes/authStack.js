@@ -8,6 +8,7 @@ import Home from "../components/Home";
 import Profile from "../components/Profile";
 import Settings from "../components/Settings";
 
+// main tabs and screens for the application
 const screens = {
 
     Login: {

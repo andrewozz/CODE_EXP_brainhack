@@ -15,6 +15,7 @@ import {
 } from 'react-native';
 import Feather from 'react-native-vector-icons/Feather';
 import Ant from 'react-native-vector-icons/AntDesign';
+import Scan from 'react-native-vector-icons/AntDesign';
 import Homepage from 'react-native-vector-icons/AntDesign';
 import Inbox from 'react-native-vector-icons/MaterialIcons';
 import Person from 'react-native-vector-icons/Ionicons';
@@ -24,33 +25,57 @@ const windowHeight = Dimensions.get('window').height;
 
 
 
-const Home = () => {
+const Home = ({navigation}) => {
 
     const [user,setUser] = useState({name: "Andrew", msg: "welcome"})
 
-  return (
-    <SafeAreaView style={{flex: 1, paddingHorizontal :20, display: "flex", flexDirection: "column", alignItems: "center"}}>
+    const navigateScanStore = () =>
+    {
+        navigation.navigate("Scan Store");
+    }
+
+    return (
+    <SafeAreaView style={{flex: 1, paddingHorizontal :20, display: "flex", flexDirection: "column", alignItems: "center", backgroundColor: "#EDECF3"}}>
         <ScrollView style={{width: "100%"}}>
-            <ImageBackground source={require("../images/motorcylist.png") } imageStyle={{borderRadius: 7}} style={styles.headercard}>
+            <ImageBackground source={require("../images/soldiers.jpg") } imageStyle={{borderRadius: 7}} style={styles.headercard}>
                 <View style={styles.translucentBg}></View>
-                <Text style={{fontSize: 35, color: "white", fontWeight: "600", textAlign: "center", zIndex: 10,position:"absolute", bottom: 20, left: "6%"}}>Welcome {user.name}</Text>
+                <View style ={{display: "flex", flexDirection: "column", alignItems:"center", justifyContent: "center",height: "100%", zIndex: 10, marginTop: 20,}}>
+                    <Text style={{fontSize: 35, color: "white", fontWeight: "600", textAlign: "center", zIndex: 10}}>Welcome {user.name}</Text>
+                    <TouchableOpacity style={styles.btn} onPress={navigateScanStore}>
+                                <Text style={styles.btntxt}>Scan Store</Text>
+                    </TouchableOpacity>
+                </View>
             </ImageBackground>
+
+            <Text style={styles.title}>LAST VISITED</Text>
 
         </ScrollView>
 
         {/* Taksbar widget with styling */}
         <View style={styles.taskbar}>
             <Inbox name="forward-to-inbox" size={30} color="white" />
-            <Ant name="search1" size={30} color="white" />
             <Homepage name="home" size={30} color="white" />
+            <Ant onPress={navigateScanStore} name="scan1" size={30} color="white" />
             <Person name="person" size={30} color="white" />
-            <Feather name="settings" size={30} color="white" />
         </View>
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
+    bg:
+    {
+        backgroundColor: "#EDECF3",
+    },
+    title:
+    {
+        fontFamily: "Rammetto One",
+        fontWeight:  "800",
+        fontSize: 30,
+        padding: 10,
+        marginTop: 10,
+        color: "black"
+    },
     translucentBg:{
         width: "100%",
         zIndex: 3,
@@ -63,7 +88,7 @@ const styles = StyleSheet.create({
 
     headercard:
     {
-        marginTop: 25,
+        marginTop: 30,
         width:  "100%",
         backgroundColor: "#483d8b",
         textAlign: "center",
@@ -84,7 +109,26 @@ const styles = StyleSheet.create({
         justifyContent:"space-around",
         flexDirection: "row",
                 
-    }
+    },
+    btn:
+    {
+        width:  "75%",
+        textAlign: "center",
+        paddingVertical: 8,
+        paddingHorizontal: 10,
+        borderWidth: 2,
+        borderColor: "white", 
+        borderRadius: 5,
+        zIndex: 10,
+        margin: 14,
+    },
+    btntxt:
+    {
+        textAlign: "center",
+        color: "white",
+        fontSize: 20,
+        fontWeight: "700",
+    },
 })
 
 export default Home;

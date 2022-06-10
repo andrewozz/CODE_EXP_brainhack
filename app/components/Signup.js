@@ -24,6 +24,8 @@ const Signup = ({navigation}) => {
     const [password,setOnChangePassword] = useState("")
     const [confirmPassword,setOnChangeConfirmPassword] = useState("")
     const [name,setOnChangeName] = useState("")
+    const [isUser, setIsUser] = useState(false)
+    const [isAdmin, setIsAdmin] = useState(false)
 
     const clearForm = () =>
     {
@@ -45,7 +47,7 @@ const Signup = ({navigation}) => {
 
         if (password !== confirmPassword){Alert.alert("Passwords do not match!"); clearForm(); return;}
         
-        axios.post("http://10.0.2.2:3005/api/users/create-user-account" , {params: {"email": email, "password": password, "name" : name} })
+        axios.post("http://10.0.2.2:3005/api/users/create-user-account" , {params: {"email": email, "password": password, "name" : name, "isUser": isUser,"isAdmin":isAdmin} })
         .then(()=>  {Alert.alert("succssful!"); navigation.navigate("Login"); clearForm(); })
         .catch((err) => {alert(err.response.data);clearForm();} )
     }
@@ -57,7 +59,7 @@ const Signup = ({navigation}) => {
     }
 
     return (
-        <ScrollView>
+        <View>
             <SafeAreaView
                 contentInsetAdjustmentBehavior="automatic"
                 style ={styles.bg}
@@ -68,7 +70,7 @@ const Signup = ({navigation}) => {
                     style={styles.input}
                     onChangeText={setOnChangeEmail}
                     underlineColorAndroid="transparent"
-                    placeholder = "email"
+                    placeholder = "NRIC"
                     placeholderTextColor="white" 
                     value={email}
                     />
@@ -101,6 +103,14 @@ const Signup = ({navigation}) => {
                     secureTextEntry={true}
                     value = {confirmPassword}
                     />
+                    <View style ={{marginTop: 20, display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
+                        <TouchableOpacity style={[styles.btn,styles.smallerbtn,isUser ? styles.selected:styles.unselected]} onPress={()=>{setIsUser(true);setIsAdmin(false)}}>
+                                <Text style={[styles.btntxt,isUser ? styles.selectedtxt:styles.unselected]}>User</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity style={[styles.btn,styles.smallerbtn,isAdmin ? styles.selected:styles.unselected]} onPress={()=>{setIsAdmin(true);setIsUser(false)}}>
+                                <Text style={[styles.btntxt, isAdmin ? styles.selectedtxt: styles.unselected]}>Admin</Text>
+                        </TouchableOpacity>
+                    </View>
 
                     <View style={{position:  "relative", paddingVertical: 20,marginTop: 5,}}>
                         <TouchableOpacity style={styles.btn} onPress={handleSignup}>
@@ -111,7 +121,7 @@ const Signup = ({navigation}) => {
                 </View>
                 
             </SafeAreaView>
-        </ScrollView>
+        </View>
     )
 }
 
@@ -122,15 +132,16 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         justifyContent : "center",
-        alignItems: "center",
-        height: windowHeight*0.75,
+        // alignItems: "space-around",
     },
     card:{
         backgroundColor: "#483d8b",
         width: "75%",
         borderRadius: 4,
         padding: 25,
-        position: "relative"
+        position: "relative",
+        marginTop: 0.1* windowHeight,
+
     },
     input:
     {
@@ -157,6 +168,20 @@ const styles = StyleSheet.create({
         textAlign: "center",
         color: "white",
         fontSize: 18,
+    },
+    smallerbtn:
+    {
+        width: 120,
+    },
+    selected:
+    {
+        backgroundColor: "white",
+
+    }
+    ,
+    selectedtxt:
+    {
+        color: "#483d8b",
     }
 })
 
