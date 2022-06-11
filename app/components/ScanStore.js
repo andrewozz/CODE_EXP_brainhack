@@ -15,8 +15,8 @@ import {
   View,
   Alert,
 } from 'react-native';
-import Qr from 'react-native-vector-icons/AntDesign';
-import { set } from 'express/lib/application';
+// import Qr from 'react-native-vector-icons/AntDesign';
+// import { set } from 'express/lib/application';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -26,12 +26,12 @@ const windowHeight = Dimensions.get('window').height;
 const ScanStore = ({navigation}) => {
 
     const [storeId, setStoreId] = useState("");
-    const [password, setPassword] = useState("");
+    const [camp,setCamp] = useState("");
 
     const clearForm = () =>
     {
         setStoreId("");
-        setPassword("");
+        setCamp("");
     }
     
     const handleSubmit = () =>
@@ -43,44 +43,49 @@ const ScanStore = ({navigation}) => {
 
 
         // Assuming axios returns res.status(200) and user successfully enters correct ID and password for store
-        navigation.navigate("Store Items");
+        navigation.navigate("Loading");
 
     }
 
   return (
-    <SafeAreaView style={[{padding: 15, display: "flex",flexDirection: "column", alignItems: "center"},styles.bg]}>
+    <SafeAreaView style={[{padding: 15, display: "flex",flexDirection: "column", alignItems: "center", height: windowHeight},styles.bg]}>
         {/* <Text>scanning store</Text> */}
-        <View style={styles.box}>
+        {/* <View style={styles.box}>
             <Qr name="qrcode" size={260} color = "black"></Qr>
-        </View>
-        <Text style={styles.title}>Scan QR code</Text>
-        <Text style={{marginTop: 8, fontSize :  16, color: "black"}}>Manually enter storeID</Text>
-        <View style= {styles.card}>
-            <TextInput
-                clearButtonMode="always"
-                style={styles.input}
-                onChangeText={setStoreId}
-                underlineColorAndroid="transparent"
-                placeholder = "Store ID"
-                placeholderTextColor="white" 
-                value ={storeId}
-                />
-                
-            <TextInput
-            clearButtonMode="always"
-            style={styles.input}
-            onChangeText={setPassword}
-            placeholder = "Passcode"
-            underlineColorAndroid="transparent"
-            placeholderTextColor="white" 
-            secureTextEntry={true}
-            value = {password}
-            />
-            <TouchableOpacity style={styles.btn} onPress={handleSubmit}>
-                    <Text style={styles.btntxt}>ENTER</Text>
-            </TouchableOpacity>
+        </View> */}
+        {/* <Text style={styles.title}>Scan QR code</Text> */}
+        <View style= {{ marginTop: windowHeight*0.15,display: "flex",flexDirection: "column", alignItems: "center"}}>
 
+            <Text style={{marginTop: 8, fontSize :  23}}>SELECT STORE</Text>
+            <View style= {styles.card}>
+
+                <TextInput
+                    clearButtonMode="always"
+                    style={styles.input}
+                    onChangeText={setCamp}
+                    underlineColorAndroid="transparent"
+                    placeholder = "Camp/ Air base"
+                    placeholderTextColor="white" 
+                    value ={camp}
+                    />
+                <TextInput
+                    clearButtonMode="always"
+                    style={styles.input}
+                    onChangeText={setStoreId}
+                    underlineColorAndroid="transparent"
+                    placeholder = "Store ID"
+                    placeholderTextColor="white" 
+                    value ={storeId}
+                    />
+                    
+
+                <TouchableOpacity style={styles.btn} onPress={handleSubmit}>
+                        <Text style={styles.btntxt}>ENTER</Text>
+                </TouchableOpacity>
+
+            </View>
         </View>
+
 
 
 

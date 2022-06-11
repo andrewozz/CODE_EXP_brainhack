@@ -15,7 +15,6 @@ import {
   View,
   Alert,
 } from 'react-native';
-import { color } from 'react-native-reanimated';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -24,13 +23,14 @@ const windowHeight = Dimensions.get('window').height;
 
 const Storeitems = ({navigation}) => {
     
-    //Dummy Items 
-    const dummyData = [{"ItemId": 1, "Name" : "Shoes", "Description" : "US size 10 Adidas shoes", "quantity" : 10},
-    {"ItemId": 2, "Name" : "Admin bag", "Description" : "30 by 50 cm bag, made with resistant and waterproof material ", "quantity" : 70},
-    {"ItemId": 3, "Name" : "Torch", "Description" : "10wh battery torchlight, with multiple shades of green", "quantity" : 5},
-    {"ItemId": 4, "Name" : "Swiss knife", "Description" : "sharpened swiss blade, made in france", "quantity" : 30},
-    {"ItemId": 5, "Name" : "Jacket", "Description" : "windbreaker jacket", "quantity" : 40},
-    {"ItemId": 6, "Name" : "Jacket", "Description" : "windbreaker jacket", "quantity" : 40}]
+    //Dummy Data for testing
+    const dummyData = [
+    {"ItemId": 1, "Name" : "Shoes", "Description" : "US size 10 Adidas shoes", "Quantity" : 10},
+    {"ItemId": 2, "Name" : "Admin bag", "Description" : "30 by 50 cm bag, made with resistant and waterproof material ", "Quantity" : 70},
+    {"ItemId": 3, "Name" : "Torch", "Description" : "10wh battery torchlight, with multiple shades of green", "Quantity" : 5},
+    {"ItemId": 4, "Name" : "Swiss knife", "Description" : "sharpened swiss blade, made in france", "Quantity" : 30},
+    {"ItemId": 5, "Name" : "Jacket", "Description" : "windbreaker jacket", "Quantity" : 40},
+    {"ItemId": 6, "Name" : "Jacket", "Description" : "windbreaker jacket", "Quantity" : 40}]
     
     
     const [items,setItems] = useState([]);
@@ -38,9 +38,7 @@ const Storeitems = ({navigation}) => {
     //useEffect to get a list of all the items for that particulat StoreID. each item can be a json obj
     useEffect(()=>
     {
-        console.log("hello")
         setItems(dummyData);
-        console.log(items)
     }, [])
 
 
@@ -48,7 +46,7 @@ const Storeitems = ({navigation}) => {
     const showItem = (item) =>
     {
         console.log(item)
-        navigation.navigate("Store Item");
+        navigation.navigate({name : "Store Item", params: item});
     }
 
 
@@ -64,10 +62,10 @@ const Storeitems = ({navigation}) => {
                         {/* Each store item is returned here */}
                         return(
                         <View style={{display:"flex", flexDirection: "column", width: "50%", paddingHorizontal: 10, paddingVertical: 15, alignItems: "center"}}>
-                            <TouchableOpacity onPress={()=>showItem(item)} style={{ backgroundColor: "#D9D9D9" , display:"flex", flexDirection: "column", alignItems: "center", paddingBottom: 15, borderBottomRightRadius: 15, borderBottomLeftRadius: 15}}>
-                                <Image source={require("../images/boots.jpg")} style={{width: windowWidth*0.35, height: windowWidth*0.32,  borderRadius: 15, overflow: 'hidden',}}></Image>
-                                <Text style={styles.title}>ITEM {item.ItemId}</Text>
-                                <Text style={styles.p}>Qty: {item.quantity}</Text>
+                            <TouchableOpacity onPress={()=>showItem(item)} style={{ backgroundColor: "#D9D9D9" , display:"flex", flexDirection: "column", alignItems: "center", paddingBottom: 15, borderRadius: 15}}>
+                                <Image source={require("../images/boots.jpg")} style={{width: windowWidth*0.35, height: windowWidth*0.32,  borderRadius: 15, overflow: 'hidden', marginBottom: 5}}></Image>
+                                <Text style={styles.title}>{item.Name}</Text>
+                                <Text style={styles.p}>Qty: {item.Quantity}</Text>
                             </TouchableOpacity>
                         </View>)
                     }): <View>casc</View>}

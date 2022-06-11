@@ -18,6 +18,7 @@ import Profile from './components/Profile';
 import ScanStore from './components/ScanStore';
 import Storeitems from './components/Storeitems';
 import Storeitem from './components/Storeitem';
+import LoadingNotification from './components/LoadingNotification';
 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
@@ -33,11 +34,10 @@ const App = () => {
           <Stack.Screen name="Signup" component={Signup} />
           <Stack.Screen name="Home" component={Home} />
           <Stack.Screen name="Profile" component={Profile} />
-          <Stack.Screen name="Scan Store" component={ScanStore} />
+          <Stack.Screen name="Select Store" component={ScanStore} />
+          <Stack.Screen name="Loading" options={{ title: 'Requesting Permission' }} component={LoadingNotification} />
           <Stack.Screen name="Store Items" component={Storeitems} />
           <Stack.Screen name="Store Item" component={Storeitem} />
-
-
 
       </Stack.Navigator>
     </NavigationContainer>

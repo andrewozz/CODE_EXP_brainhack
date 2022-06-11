@@ -31,7 +31,7 @@ const Home = ({navigation}) => {
 
     const navigateScanStore = () =>
     {
-        navigation.navigate("Scan Store");
+        navigation.navigate("Select Store");
     }
 
     return (
@@ -42,7 +42,7 @@ const Home = ({navigation}) => {
                 <View style ={{display: "flex", flexDirection: "column", alignItems:"center", justifyContent: "center",height: "100%", zIndex: 10, marginTop: 20,}}>
                     <Text style={{fontSize: 35, color: "white", fontWeight: "600", textAlign: "center", zIndex: 10}}>Welcome {user.name}</Text>
                     <TouchableOpacity style={styles.btn} onPress={navigateScanStore}>
-                                <Text style={styles.btntxt}>Scan Store</Text>
+                                <Text style={styles.btntxt}>Select Store</Text>
                     </TouchableOpacity>
                 </View>
             </ImageBackground>
