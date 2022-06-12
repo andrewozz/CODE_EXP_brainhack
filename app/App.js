@@ -20,6 +20,9 @@ import Storeitems from './components/Storeitems';
 import Storeitem from './components/Storeitem';
 import LoadingNotification from './components/LoadingNotification';
 
+import {AuthProvider} from "./context/AuthContext";
+
+
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const Stack = createNativeStackNavigator();
@@ -28,19 +31,22 @@ const Stack = createNativeStackNavigator();
 const App = () => {
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator >
-          <Stack.Screen name="Login" component={Login}/>
-          <Stack.Screen name="Signup" component={Signup} />
-          <Stack.Screen name="Home" component={Home} />
-          <Stack.Screen name="Profile" component={Profile} />
-          <Stack.Screen name="Select Store" component={ScanStore} />
-          <Stack.Screen name="Loading" options={{ title: 'Requesting Permission' }} component={LoadingNotification} />
-          <Stack.Screen name="Store Items" component={Storeitems} />
-          <Stack.Screen name="Store Item" component={Storeitem} />
+      <AuthProvider>
+        <NavigationContainer>
+          <Stack.Navigator >
+              <Stack.Screen name="Login" component={Login}/>
+              <Stack.Screen name="Signup" component={Signup} />
+              <Stack.Screen name="Home" component={Home} />
+              <Stack.Screen name="Profile" component={Profile} />
+              <Stack.Screen name="Select Store" component={ScanStore} />
+              <Stack.Screen name="Loading" options={{ title: 'Requesting Permission' }} component={LoadingNotification} />
+              <Stack.Screen name="Store Items" component={Storeitems} />
+              <Stack.Screen name="Store Item" component={Storeitem} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </AuthProvider>
+    
 
-      </Stack.Navigator>
-    </NavigationContainer>
   );
 };
 

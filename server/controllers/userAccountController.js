@@ -46,7 +46,7 @@ const createUserAccount = async (req,res) =>
 const authenticateUserAccount = (req,res) =>
 {
   const accountDetails = req.query;
-  console.log(accountDetails)
+  // console.log(accountDetails)
   const userRef = ref(rtimeDb, "Accounts/");
   get(userRef) // then connsists of a function for uthentication that wd run after get fetches data
   .then((snapshot)=>
@@ -60,6 +60,14 @@ const authenticateUserAccount = (req,res) =>
         if (snapAccountInfo.email === accountDetails.email)
         {
           emailExists = true;
+
+          //perform checks if user enters his role correctly as when he signed up, eg. an ik should login as an ik. a user shd login as user and not as ik
+          if (accountDetails.role !== snapAccountInfo.role)
+          {
+            console.log(accountDetails);
+            return res.status(400).json(`You are not an ${accountDetails.role}`);
+          }
+          
           //correct pw for email acct
           if (snapAccountInfo.password === accountDetails.password){console.log("success");return res.status(200).json({msg: "successfully logged in!", uid: accountId, name: snapAccountInfo.name});}
           else

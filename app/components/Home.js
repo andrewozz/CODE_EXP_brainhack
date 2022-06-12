@@ -29,10 +29,9 @@ const Home = ({navigation}) => {
 
     const [user,setUser] = useState({name: "Andrew", msg: "welcome"})
 
-    const navigateScanStore = () =>
-    {
-        navigation.navigate("Select Store");
-    }
+    const navigateScanStore = () => navigation.navigate("Select Store");
+    const navigateProfile = () => navigation.navigate("Profile");
+   
 
     return (
     <SafeAreaView style={{flex: 1, paddingHorizontal :20, display: "flex", flexDirection: "column", alignItems: "center", backgroundColor: "#EDECF3"}}>
@@ -56,7 +55,7 @@ const Home = ({navigation}) => {
             <Inbox name="forward-to-inbox" size={30} color="white" />
             <Homepage name="home" size={30} color="white" />
             <Ant onPress={navigateScanStore} name="scan1" size={30} color="white" />
-            <Person name="person" size={30} color="white" />
+            <Person onPress={navigateProfile} name="person" size={30} color="white" />
         </View>
     </SafeAreaView>
   )

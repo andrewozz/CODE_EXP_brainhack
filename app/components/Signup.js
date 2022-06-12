@@ -23,14 +23,16 @@ const Signup = ({navigation}) => {
     const [email,setOnChangeEmail] = useState("")
     const [password,setOnChangePassword] = useState("")
     const [confirmPassword,setOnChangeConfirmPassword] = useState("")
-    const [name,setOnChangeName] = useState("")
-    const [isUser, setIsUser] = useState(false)
-    const [isAdmin, setIsAdmin] = useState(false)
+    const [name,setOnChangeName] = useState("");
+    const [isUser, setIsUser] = useState(false);
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [role,setRole] = useState("");
 
     const clearForm = () =>
     {
         setOnChangeEmail("");
-        setOnChangeConfirmPassword("")
+        setOnChangeConfirmPassword("");
+        setOnChangeName("");
         setOnChangePassword("");
     }
     
@@ -47,7 +49,7 @@ const Signup = ({navigation}) => {
 
         if (password !== confirmPassword){Alert.alert("Passwords do not match!"); clearForm(); return;}
         
-        axios.post("http://10.0.2.2:3005/api/users/create-user-account" , {params: {"email": email, "password": password, "name" : name, "isUser": isUser,"isAdmin":isAdmin} })
+        axios.post("http://10.0.2.2:3005/api/users/create-user-account" , {params: {"email": email, "password": password, "name" : name, "role": role} })
         .then(()=>  {Alert.alert("succssful!"); navigation.navigate("Login"); clearForm(); })
         .catch((err) => {alert(err.response.data);clearForm();} )
     }
@@ -104,10 +106,10 @@ const Signup = ({navigation}) => {
                     value = {confirmPassword}
                     />
                     <View style ={{marginTop: 20, display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
-                        <TouchableOpacity style={[styles.btn,styles.smallerbtn,isUser ? styles.selected:styles.unselected]} onPress={()=>{setIsUser(true);setIsAdmin(false)}}>
+                        <TouchableOpacity style={[styles.btn,styles.smallerbtn,isUser ? styles.selected:styles.unselected]} onPress={()=>{setIsUser(true);setIsAdmin(false); setRole("user")}}>
                                 <Text style={[styles.btntxt,isUser ? styles.selectedtxt:styles.unselected]}>User</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={[styles.btn,styles.smallerbtn,isAdmin ? styles.selected:styles.unselected]} onPress={()=>{setIsAdmin(true);setIsUser(false)}}>
+                        <TouchableOpacity style={[styles.btn,styles.smallerbtn,isAdmin ? styles.selected:styles.unselected]} onPress={()=>{setIsAdmin(true);setIsUser(false);setRole("admin")}}>
                                 <Text style={[styles.btntxt, isAdmin ? styles.selectedtxt: styles.unselected]}>Admin</Text>
                         </TouchableOpacity>
                     </View>

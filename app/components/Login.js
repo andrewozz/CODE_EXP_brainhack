@@ -18,8 +18,9 @@ const windowHeight = Dimensions.get('window').height;
 
 const Login = ({navigation}) => {
 
-    const [email,setOnChangeEmail] = useState("")
+    const [email,setOnChangeEmail] = useState("") // both email n pw will be sent to db
     const [password,setOnChangePassword] = useState("")
+    const [role,setRole] = useState(""); //user or admin role will be sent to db
     const [isUser, setIsUser] = useState(false)
     const [isAdmin, setIsAdmin] = useState(false)
 
@@ -47,8 +48,9 @@ const Login = ({navigation}) => {
             clearForm();
             return;
         }   
-        //send email and pasword to server to authenticate user
-        axios.get("http://10.0.2.2:3005/api/users/login-user",{params: {email: email, password: password, isUser: isUser, isAdmin : isAdmin}})
+
+        //send email and pasword to server to authenticate user --> response returns uid and name
+        axios.get("http://10.0.2.2:3005/api/users/login-user",{params: {email: email, password: password, role: role}})
         .then((res)=> {Alert.alert(`welcome ${res.data.name}`);clearForm();navigation.navigate("Home");})
         .catch((err)=> {clearForm();Alert.alert(err.response.data);console.log(err.message)})
 
@@ -83,10 +85,10 @@ const Login = ({navigation}) => {
                     value = {password}
                     />
                     <View style ={{marginTop: 20, display: "flex", flexDirection: "row", justifyContent: "space-between"}}>
-                        <TouchableOpacity style={[styles.btn,styles.smallerbtn,isUser ? styles.selected:styles.unselected]} onPress={()=>{setIsUser(true);setIsAdmin(false)}}>
+                        <TouchableOpacity style={[styles.btn,styles.smallerbtn,isUser ? styles.selected:styles.unselected]} onPress={()=>{setIsUser(true);setIsAdmin(false);setRole("user")}}>
                                 <Text style={[styles.btntxt,isUser ? styles.selectedtxt:styles.unselected]}>User</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={[styles.btn,styles.smallerbtn,isAdmin ? styles.selected:styles.unselected]} onPress={()=>{setIsAdmin(true);setIsUser(false)}}>
+                        <TouchableOpacity style={[styles.btn,styles.smallerbtn,isAdmin ? styles.selected:styles.unselected]} onPress={()=>{setIsAdmin(true);setIsUser(false);setRole("admin")}}>
                                 <Text style={[styles.btntxt, isAdmin ? styles.selectedtxt: styles.unselected]}>Admin</Text>
                         </TouchableOpacity>
                     </View>
