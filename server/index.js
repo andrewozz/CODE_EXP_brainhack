@@ -17,10 +17,14 @@ app.get("/", (req, res) => {
 });
 
 
-// // User Account routes
+// User Account routes
 const userSettings = require("./routes/userSettingsRoutes");
 app.use("/api/users", userSettings);
 
+
+// Inventory Data routes
+const inventory = require("./routes/inventoryRoutes");
+app.use("/api/inventory", inventory);
 
 
 app.listen(port, () => {

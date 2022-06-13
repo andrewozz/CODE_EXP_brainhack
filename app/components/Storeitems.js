@@ -18,28 +18,29 @@ import {
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
+import { useStore } from "../context/StoreContext";
 
 
 
 const Storeitems = ({navigation}) => {
     
-    //Dummy Data for testing
-    const dummyData = [
-    {"ItemId": 1, "Name" : "Shoes", "Description" : "US size 10 Adidas shoes", "Quantity" : 10},
-    {"ItemId": 2, "Name" : "Admin bag", "Description" : "30 by 50 cm bag, made with resistant and waterproof material ", "Quantity" : 70},
-    {"ItemId": 3, "Name" : "Torch", "Description" : "10wh battery torchlight, with multiple shades of green", "Quantity" : 5},
-    {"ItemId": 4, "Name" : "Swiss knife", "Description" : "sharpened swiss blade, made in france", "Quantity" : 30},
-    {"ItemId": 5, "Name" : "Jacket", "Description" : "windbreaker jacket", "Quantity" : 40},
-    {"ItemId": 6, "Name" : "Jacket", "Description" : "windbreaker jacket", "Quantity" : 40}]
-    
-    
-    const [items,setItems] = useState([]);
+    const [items,setItems] = useState([]);    
+    const {campName,storeIdName,update} = useStore();
+
 
     //useEffect to get a list of all the items for that particulat StoreID. each item can be a json obj
     useEffect(()=>
     {
-        setItems(dummyData);
-    }, [])
+        axios.get("http://10.0.2.2:3005/api/inventory/get-all-store-items",{params: {"camp": campName, "storeId" : storeIdName}})
+        .then((res)=> {
+            //res.data will contain all the store items 
+            // console.log(res.data.items);
+            setItems(res.data.items);
+            
+        })
+        .catch((err)=> {Alert.alert("smth went wrong! Please try again!");clearForm();console.log(err.message)})
+        
+    }, [update])
 
 
     //functions
@@ -64,8 +65,8 @@ const Storeitems = ({navigation}) => {
                         <View style={{display:"flex", flexDirection: "column", width: "50%", paddingHorizontal: 10, paddingVertical: 15, alignItems: "center"}}>
                             <TouchableOpacity onPress={()=>showItem(item)} style={{ backgroundColor: "#D9D9D9" , display:"flex", flexDirection: "column", alignItems: "center", paddingBottom: 15, borderRadius: 15}}>
                                 <Image source={require("../images/boots.jpg")} style={{width: windowWidth*0.35, height: windowWidth*0.32,  borderRadius: 15, overflow: 'hidden', marginBottom: 5}}></Image>
-                                <Text style={styles.title}>{item.Name}</Text>
-                                <Text style={styles.p}>Qty: {item.Quantity}</Text>
+                                <Text style={styles.title}>{item.name}</Text>
+                                <Text style={styles.p}>Qty: {item.quantity}</Text>
                             </TouchableOpacity>
                         </View>)
                     }): <View>casc</View>}
@@ -82,9 +83,11 @@ const styles = StyleSheet.create({
     },
 
     title: {
-        fontSize: 20,
+        fontSize: 16,
         fontWeight: "700",
         color: "black",
+        paddingHorizontal :10,
+        textAlign:  "center"
     },
     p:{
         fontSize: 16,

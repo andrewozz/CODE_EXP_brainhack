@@ -20,10 +20,21 @@ const windowHeight = Dimensions.get('window').height;
 
 const Profile = () => {
   return (
-    <SafeAreaView style={{paddingHorizontal :20, display: "flex", flexDirection: "column", alignItems: "center", backgroundColor: "#EDECF3", position: "relative"}}>
-        <ScrollView style={styles.profile}>
-            <Text>Profile</Text>
-        </ScrollView>
+    <SafeAreaView style={{paddingHorizontal :20, display: "flex", flexDirection: "column", alignItems: "center", backgroundColor: "#EDECF3", position: "relative", height: windowHeight, }}>
+        
+        
+        <View style={styles.profile}>
+          <ScrollView >
+            <View>
+              <Text style={styles.text} >Profile</Text>
+            </View>
+          </ScrollView>
+        </View>
+
+        {/* use taskbar component */}
+        <View style={styles.Taskbar}>
+          <Taskbar/>
+        </View>
         
     </SafeAreaView>
   )
@@ -32,11 +43,22 @@ const Profile = () => {
 const styles = StyleSheet.create({
   profile:
   {
-    height: 20,
-    width: 20,
-    backgroundColor: "red",
+    height: windowHeight*0.7,
+    width: "100%",
+    backgroundColor: "yellow",
+    
+  },
+  Taskbar:
+  {
+    width : "100%",
+    marginTop: 20,
+  },
+  text:
+  {
+    
   }
 })
+
 
 
 export default Profile;

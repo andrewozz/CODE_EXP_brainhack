@@ -81,7 +81,7 @@ const Signup = ({navigation}) => {
                     style={styles.input}
                     onChangeText={setOnChangeName}
                     underlineColorAndroid="transparent"
-                    placeholder = "name"
+                    placeholder = "Full Name"
                     placeholderTextColor="white" 
                     value={name}
                     />

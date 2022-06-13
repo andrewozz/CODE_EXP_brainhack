@@ -24,19 +24,15 @@ import Person from 'react-native-vector-icons/Ionicons';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 
-
-const Taskbar = () => {
-
-    const navigateScanStore = () => navigation.navigate("Select Store");
-    const navigateProfile = () => navigation.navigate("Profile");
+const Taskbar = ({navigateHome, navigateStore, navigateProfile}) => {
 
     return (
     <View>
         <View style={styles.taskbar}>
             <Inbox name="forward-to-inbox" size={30} color="white" />
-            <Homepage name="home" size={30} color="white" />
-            <Ant onPress={navigateScanStore} name="scan1" size={30} color="white" />
-            <Person name="person" size={30} color="white" />
+            <Homepage name="home" onPress={navigateHome} size={30} color="white" />
+            {/* <Ant onPress={navigateStore} name="scan1" size={30} color="white" /> */}
+            <Person onPress={navigateProfile} name="person" size={30} color="white" />
         </View>
     </View>
   )
@@ -48,10 +44,8 @@ const styles = StyleSheet.create({
         paddingVertical: 16,
         paddingHorizontal: 16,
         backgroundColor: "#483d8b",
-        position: "absolute",
         width: "100%",
         borderRadius: 7,
-        bottom: 50,
         display: "flex",
         justifyContent:"space-around",
         flexDirection: "row",
