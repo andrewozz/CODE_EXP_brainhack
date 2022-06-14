@@ -48,7 +48,7 @@ const Activities = ({navigation}) => {
           setActivities(listActivities);
           console.log(listActivities);
        })
-      .catch((err) => {alert("smt went wrong!");} )
+      .catch((err) => {Alert.alert(err.response.data);} )
 
   },[])
 
@@ -57,7 +57,7 @@ const Activities = ({navigation}) => {
     <SafeAreaView style={{position: "relative", width: "100%",height: windowHeight, backgroundColor: "#EDECF3", display: "flex", flexDirection: "column", alignItems: "center"}}>
         <View style={{height: windowHeight*0.80, paddingVertical: 20, width:"85%"}}>
           <ScrollView style={{paddingHorizontal: 30, paddingVertical: 10, width: windowWidth}}>
-            {activities ? activities.map((activity)=>{
+            {activities!==[] && activities !== null ? activities.map((activity)=>{
               return (
                 <View style={styles.activity}>
                   <View style={{width: "75%"}}>
@@ -81,6 +81,8 @@ const Activities = ({navigation}) => {
             <Homepage onPress={()=>navigation.navigate("Home")}  name="home" size={30} color="white" />
             <Person onPress={()=>navigation.navigate("Profile")} name="person" size={30} color="white" />
         </View>
+
+        
     </SafeAreaView>
   )
 }

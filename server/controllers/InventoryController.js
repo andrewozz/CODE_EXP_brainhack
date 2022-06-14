@@ -193,8 +193,14 @@ const getAllUserActivities = (req,res) =>
     get(userRef)
     .then((snapshot)=>
     {
-        console.log(snapshot.val());
-        res.status(200).json(snapshot.val());
+        if (snapshot.exists())
+        {
+            res.status(200).json(snapshot.val());
+        }
+        else
+        {
+            res.status(400).json("You do not have any activity yet!");
+        }
     })
     .catch((err)=>
     {

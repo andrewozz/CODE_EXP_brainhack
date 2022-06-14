@@ -56,7 +56,6 @@ const App = () => {
             <Stack.Navigator >
 
                 {/* Main tabs for user */}
-                <Stack.Screen name="Order Placed" component={OrderPlaced}/>
 
                 <Stack.Screen name="Login" component={Login}/>
                 <Stack.Screen name="Signup" component={Signup} />
