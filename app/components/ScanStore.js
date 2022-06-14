@@ -1,6 +1,7 @@
 import React,{useState,useEffect} from 'react';
 import axios from "axios"
 import { useStore } from "../context/StoreContext";
+import { useAuth } from "../context/AuthContext";
 
 import {
   SafeAreaView,
@@ -21,6 +22,7 @@ import {
 
 //importing components
 import Taskbar from './Taskbar';
+import { useCardAnimation } from '@react-navigation/stack';
 
 
 const windowWidth = Dimensions.get('window').width;
@@ -33,6 +35,7 @@ const ScanStore = ({navigation}) => {
     const [camp,setCamp] = useState("");
     const [storeId, setStoreId] = useState("");
     const [password,setPassword] = useState("");
+    const {userInfo} = useAuth();
 
     //using store context to retrive the store id and password
     const {setCampName,setstoreIdName} = useStore();
@@ -50,12 +53,17 @@ const ScanStore = ({navigation}) => {
         //clear form after submission
         clearForm();
 
-        //validate if storeID and passcode matches using axios req to backend
+        // validate if storeID and passcode matches using axios req to backend
         axios.post("http://10.0.2.2:3005/api/inventory/authenticate-store-entry" , {params: {"camp": camp, "storeId" : storeId, "password": password} })
         .then(()=>  {
         console.log(camp,storeId);
         setCampName(camp);setstoreIdName(storeId);
-        navigation.navigate("Loading"); 
+        if(userInfo.role === 'user'){
+            navigation.navigate("Loading"); 
+        }
+        else if(userInfo.role === 'admin'){
+            navigation.navigate("Manage"); 
+        }
         clearForm(); 
     
         })
@@ -65,9 +73,9 @@ const ScanStore = ({navigation}) => {
     }
 
     // Navigations
-    const navigateHome = () => navigation.pop();
-    const navigateProfile = () => navigation.navigate("Profile")
-    const navigateStore = () => navigation.navigate("Scan Select Store")
+    const navigateHome = () => navigation.navigate("Home");
+    const navigateProfile = () => navigation.navigate("Profile");
+    const navigateStore = () => navigation.navigate("Scan Select Store");
 
 
   return (
