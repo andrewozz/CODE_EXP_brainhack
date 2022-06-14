@@ -64,7 +64,7 @@ const Signup = ({navigation}) => {
         <View>
             <SafeAreaView
                 contentInsetAdjustmentBehavior="automatic"
-                style ={styles.bg}
+                style ={[styles.bg,{display:"flex", flexDirection:"column"}]}
                 >
                 <View style={styles.card}>
                     <TextInput
@@ -121,6 +121,12 @@ const Signup = ({navigation}) => {
                     </View>
                     <Text onPress={navigateToLogin} style={{textAlign:"center",marginTop: 3, color: "white"}}>Login to an existing account!</Text>
                 </View>
+
+                <View>
+                    <TouchableOpacity style={[styles.btn,styles.singpass]}>
+                        <Text style={styles.btntxt}>Singpass Signup</Text>
+                    </TouchableOpacity>
+                </View>
                 
             </SafeAreaView>
         </View>
@@ -134,7 +140,7 @@ const styles = StyleSheet.create({
         display: "flex",
         flexDirection: "row",
         justifyContent : "center",
-        // alignItems: "space-around",
+        alignItems: "center",
     },
     card:{
         backgroundColor: "#483d8b",
@@ -184,6 +190,16 @@ const styles = StyleSheet.create({
     selectedtxt:
     {
         color: "#483d8b",
+    },
+    singpass:
+    {
+        backgroundColor: "red",
+        marginTop :20,
+        borderRadius: 6,
+        width :windowWidth*0.75,
+        paddingHorizontal: 10,
+        paddingVertical :12,
+
     }
 })
 
