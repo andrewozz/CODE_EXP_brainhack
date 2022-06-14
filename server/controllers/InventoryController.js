@@ -150,12 +150,62 @@ const updateStoreItemQuantity = async (req,res) =>
       .catch((error) => {
         return res.status(400).json("smth went wrong!");
     });
+}
 
 
-    
+const updateUserActivities = async(req,res) =>
+{
+    console.log("updating user activities")
+    console.log(req.body.params);
 
+    //destructuring data and organizing it into individual transaction activities
+    const records = [];
+    const {camp,storeId,activities,uid} =  req.body.params;
+    for (var i =0; i< activities.length;i++)
+    {
+        const record = {"camp": camp, "storeId": storeId, "name": activities[i].name , "quantity": activities[i].quantity, "date": activities[i].date };
+        records.push(record);
+    }
+    console.log(records);
 
+    //updating data to db
+    const userRef = ref(rtimeDb, `UserActivites/${uid}/`);
+    try{
+        records.forEach((record)=>
+        {
+            push(userRef,record);
+        })
+        res.status(200).json("successfully updated activities!");
+    }
+    catch(err)
+    {
+        res.status(400).json("smth went wrong!")
+    }
 
 }
 
-module.exports = {authenticateStoreEntry, getAllStoreItems, updateStoreItemQuantity}
+const getAllUserActivities = (req,res) =>
+{
+    console.log("getAllUserActivities")
+    const {uid} = req.query;
+    const userRef = ref(rtimeDb, `UserActivites/${uid}/`);
+
+    get(userRef)
+    .then((snapshot)=>
+    {
+        console.log(snapshot.val());
+        res.status(200).json(snapshot.val());
+    })
+    .catch((err)=>
+    {
+        console.log(err);
+        res.status(400).json("smth went wrong!");
+    })
+    return;
+}
+
+module.exports = {authenticateStoreEntry, 
+                    getAllStoreItems,
+                    updateStoreItemQuantity,
+                    updateUserActivities,
+                    getAllUserActivities}
