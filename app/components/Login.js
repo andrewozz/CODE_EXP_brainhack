@@ -30,8 +30,9 @@ const Login = ({navigation}) => {
     const [isAdmin, setIsAdmin] = useState(false)
 
 
-    const navigateToLogin =() =>
+    const navigateToSignup =() =>
     {
+        clearForm();
         navigation.navigate("Signup");
     }
 
@@ -89,7 +90,7 @@ const Login = ({navigation}) => {
                     clearButtonMode="always"
                     style={styles.input}
                     onChangeText={setOnChangePassword}
-                    placeholder = "password"
+                    placeholder = "Password"
                     underlineColorAndroid="transparent"
                     placeholderTextColor="white" 
                     secureTextEntry={true}
@@ -108,7 +109,12 @@ const Login = ({navigation}) => {
                             <Text style={styles.btntxt}>Login</Text>
                         </TouchableOpacity>
                     </View>
-                    <Text onPress={()=> {clearForm();navigateToLogin()}}  style={{textAlign:"center",marginTop: 3, color: "white"}}>Sign up for an account here!</Text>
+                    {/* <View style={{position:  "relative"}}>
+                        <TouchableOpacity style={styles.btn} onPress={navigateToSignup}>
+                            <Text style={styles.btntxt}>Sign Up</Text>
+                        </TouchableOpacity>
+                    </View> */}
+                    <Text onPress={()=> {clearForm();navigateToSignup()}}  style={{textAlign:"center",marginTop: 3, color: "white"}}>Sign up for an account here!</Text>
                 </View>
                 
             </SafeAreaView>

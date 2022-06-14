@@ -65,7 +65,7 @@ const authenticateUserAccount = (req,res) =>
           if (accountDetails.role !== snapAccountInfo.role)
           {
             console.log(accountDetails);
-            return res.status(400).json(`You are not an ${accountDetails.role}`);
+            return res.status(400).json(`You are not a ${accountDetails.role}`);
           }
           
           //correct pw for email acct
@@ -74,12 +74,12 @@ const authenticateUserAccount = (req,res) =>
           {
             //wrong password entered for the email acct
             console.log("wrong pw");
-            res.status(400).json("wrong password!");
+            res.status(400).json("Wrong password!");
           }
         }
       })
     } else {
-      console.log("Something went wrong! PLease try again");
+      console.log("Something went wrong! Please try again");
     }
     if (emailExists === false) return res.status(400).json("Email does not exist!");
   })

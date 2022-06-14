@@ -42,7 +42,7 @@ const Signup = ({navigation}) => {
         //validations for field inputs
         if (email === "" || password === "" || confirmPassword === "")
         {
-            Alert.alert("Please fil up all the fields!");
+            Alert.alert("Please fill up all the fields!");
             clearForm();    
             return;
         }
@@ -50,7 +50,7 @@ const Signup = ({navigation}) => {
         if (password !== confirmPassword){Alert.alert("Passwords do not match!"); clearForm(); return;}
         
         axios.post("http://10.0.2.2:3005/api/users/create-user-account" , {params: {"email": email, "password": password, "name" : name, "role": role} })
-        .then(()=>  {Alert.alert("succssful!"); navigation.navigate("Login"); clearForm(); })
+        .then(()=>  {Alert.alert("Successful!"); navigation.navigate("Login"); clearForm(); })
         .catch((err) => {alert(err.response.data);clearForm();} )
     }
 
@@ -89,7 +89,7 @@ const Signup = ({navigation}) => {
                     clearButtonMode="always"
                     style={styles.input}
                     onChangeText={setOnChangePassword}
-                    placeholder = "password"
+                    placeholder = "Password"
                     underlineColorAndroid="transparent"
                     placeholderTextColor="white" 
                     secureTextEntry={true}
@@ -99,7 +99,7 @@ const Signup = ({navigation}) => {
                     clearButtonMode="always"
                     style={styles.input}
                     onChangeText={setOnChangeConfirmPassword}
-                    placeholder = "confirm password"
+                    placeholder = "Confirm Password"
                     underlineColorAndroid="transparent"
                     placeholderTextColor="white" 
                     secureTextEntry={true}

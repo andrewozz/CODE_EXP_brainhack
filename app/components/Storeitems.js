@@ -65,7 +65,7 @@ const Storeitems = ({navigation}) => {
             setItems(res.data.items);
             
         })
-        .catch((err)=> {Alert.alert("smth went wrong! Please try again!");clearForm();console.log(err.message)})
+        .catch((err)=> {Alert.alert("Something went wrong! Please try again!");clearForm();console.log(err.message)})
         
     }, [update])
 

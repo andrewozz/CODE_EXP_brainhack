@@ -135,7 +135,7 @@ const updateStoreItemQuantity = async (req,res) =>
     {
        return snapshot.val();
     })
-    .catch((err)=> res.status(400).json("smth went wrong!"))
+    .catch((err)=> res.status(400).json("Something went wrong!"))
 
     await set(userRef, {
         description: item.description,
@@ -148,7 +148,7 @@ const updateStoreItemQuantity = async (req,res) =>
         res.status(200).json("successfully updated quantity")
       })
       .catch((error) => {
-        return res.status(400).json("smth went wrong!");
+        return res.status(400).json("Something went wrong!");
     });
 }
 
