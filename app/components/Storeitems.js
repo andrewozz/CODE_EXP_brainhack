@@ -20,6 +20,33 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 import { useStore } from "../context/StoreContext";
 
+// sample images of store items
+// const images2 = ["shoes.png", "cream.png", "torch.png", "knife.png", "jacket.png", "shirt.png", "shorts.png"];
+
+const images = {
+	shoes: require("../images/shoes.png"),
+	bag: require("../images/bag.png"),
+	torch: require("../images/torch.png"),
+    knife: require("../images/knife.png"),
+	jacket: require("../images/jacket.png"),
+
+};
+
+const images2 = {
+	shoes: require("../images/shoes.png"),
+    cream: require("../images/cream.png"),
+	torch: require("../images/torch.png"),
+	knife: require("../images/knife.png"),
+    jacket: require("../images/jacket.png"),
+    shirt: require("../images/shirt.png"),
+    shorts: require("../images/shorts.png"),
+
+
+};
+
+const keys2 = ["shoes","cream", "torch", "knife", "jacket",  "shirt", "shorts"];
+const keys = ["shoes","bag", "torch",  "knife", "jacket"]
+
 
 
 const Storeitems = ({navigation}) => {
@@ -50,7 +77,6 @@ const Storeitems = ({navigation}) => {
         navigation.navigate({name : "Store Item", params: item});
     }
 
-
     return (
         <SafeAreaView>
             <ScrollView style= {styles.bg}>
@@ -63,8 +89,11 @@ const Storeitems = ({navigation}) => {
                         {/* Each store item is returned here */}
                         return(
                         <View style={{display:"flex", flexDirection: "column", width: "50%", paddingHorizontal: 10, paddingVertical: 15, alignItems: "center"}}>
+                            
                             <TouchableOpacity onPress={()=>showItem(item)} style={{ backgroundColor: "#D9D9D9" , display:"flex", flexDirection: "column", alignItems: "center", paddingBottom: 15, borderRadius: 15}}>
-                                <Image source={require("../images/boots.jpg")} style={{width: windowWidth*0.35, height: windowWidth*0.32,  borderRadius: 15, overflow: 'hidden', marginBottom: 5}}></Image>
+                                {campName === "camp1" ? <Image source={images[keys[index]]} style={{width: windowWidth*0.35, height: windowWidth*0.32,  borderRadius: 15, overflow: 'hidden', marginBottom: 5}}></Image>
+                                : <Image source={images2[keys2[index]]} style={{width: windowWidth*0.35, height: windowWidth*0.32,  borderRadius: 15, overflow: 'hidden', marginBottom: 5}}></Image>
+                                }
                                 <Text style={styles.title}>{item.name}</Text>
                                 <Text style={styles.p}>Qty: {item.quantity}</Text>
                             </TouchableOpacity>

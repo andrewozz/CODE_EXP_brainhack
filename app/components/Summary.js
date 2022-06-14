@@ -18,47 +18,60 @@ import {
 } from 'react-native';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
+import { useStore } from "../context/StoreContext";
+import { useAuth } from "../context/AuthContext";
+
 
 import Remove from 'react-native-vector-icons/MaterialCommunityIcons';
 
+const Summary = ({navigation}) => {
+  
+  const {campName,storeIdName,activities,setActivities} = useStore();
+  const {userInfo} = useAuth();
 
 
+  const handleCheckOut = () =>
+  {
+    //get activities from context 
+    axios.post("http://10.0.2.2:3005/api/inventory/update-user-activities",{params: {"camp": campName, "storeId" : storeIdName, "activities": activities, "uid": userInfo.uid }})
+    .then((res)=> {
+      console.log("successfully updated activities");
+      navigation.navigate("Loading2")
+        
+    })
+    .catch((err)=> {Alert.alert("smth went wrong! Please try again!");console.log(err.message)})
 
-//Fetch all the data from the current activities of the account at that particular store. uid/camp/storeId current activities (unconfirmed until he leaves the store)
 
-const Summary = () => {
+    //update the db with the updated activities/transactions
 
-  //dummy data for activities , - is for taken, + is for deposit
-  const activities = 
-  [ {"name": "Admin Shorts", "quantity": -10, "date": "06/11/2022 18:15"},
-    {"name": "Torchlight", "quantity": 30, "date": "06/11/2022 18:10"},
-    {"name": "water bottle", "quantity": 50, "date": "06/11/2022 17:30"},  
-  ]
 
+    //reset activities to empty list [] for next store entry after successfully updated db activtiies
+    setActivities([])
+  }
 
 
   return (
     <SafeAreaView style={{position: "relative", width: "100%",height: windowHeight, backgroundColor: "#EDECF3", display: "flex", flexDirection: "column", alignItems: "center"}}>
         <View style={{height: windowHeight*0.7}}>
           <ScrollView style={{paddingHorizontal: 30, paddingVertical: 20, width: windowWidth}}>
-            {activities.map((activity)=>{
+            {activities !== undefined ? activities.map((activity)=>{
               return (
                 <View style={styles.activity}>
                   <Remove name ='delete' size={35} style={{position: "absolute", right: "10%", bottom: "50%", color: "darkslateblue"}}/>
-                  <View style={{width: "70%"}}>
+                  <View style={{width: "75%"}}>
                     <Text style={styles.txt}>Item: {activity.name}</Text>
                     <Text  style={styles.txt}>{activity.quantity < 0 ? `Qty Taken: ${-1*activity.quantity}` :  `Qty Deposited: ${activity.quantity}`}</Text>
-                    <Text  style={styles.txt}>Date: {activity.date}</Text>
+                    <Text  style={styles.dateTxt}>Date: {activity.date}</Text>
                   </View>
                   
                 </View>
               )
-            })}
+            }): <View></View>}
           </ScrollView>
         </View>
-        <View>
+        <View style={{marginTop: 20}}>
           <TouchableOpacity style={styles.btn} >
-                <Text style={styles.btntxt}>Checkout</Text>
+                <Text style={styles.btntxt} onPress={handleCheckOut}>Checkout</Text>
           </TouchableOpacity>
         </View>
     </SafeAreaView>
@@ -101,6 +114,21 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "500",
     color: 'black'
+  },
+  dateTxt:
+  {
+    fontSize: 18,
+    fontWeight: "500",
+    color: 'black'
+  },
+  fade:{
+    backgroundColor: "yellow",
+    height: 30,
+    paddingHorizontal: 30, 
+    paddingVertical: 20, 
+    width: windowWidth,
+
+
   }
 })
 export default Summary

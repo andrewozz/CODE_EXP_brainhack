@@ -15,8 +15,13 @@ import {
 } from 'react-native';
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
+import { useAuth } from "../context/AuthContext";
+
 
 const Login = ({navigation}) => {
+
+    //use auth context -> set uid 
+    const {userInfo,setUserInfo} = useAuth();
 
     const [email,setOnChangeEmail] = useState("") // both email n pw will be sent to db
     const [password,setOnChangePassword] = useState("")
@@ -52,7 +57,13 @@ const Login = ({navigation}) => {
 
         //send email and pasword to server to authenticate user --> response returns uid and name
         axios.get("http://10.0.2.2:3005/api/users/login-user",{params: {email: email, password: password, role: role}})
-        .then((res)=> {Alert.alert(`Welcome ${res.data.name}!`);clearForm();navigation.navigate("Home", {role: role, name: res.data.name});})
+        .then((res)=> {Alert.alert(`welcome ${res.data.name}`);
+        clearForm();
+        const userData = userInfo;
+        userData.uid = res.data.uid;
+        userData.role = res.data.role;
+        setUserInfo(userData);
+        navigation.navigate("Home");})
         .catch((err)=> {clearForm();Alert.alert(err.response.data);console.log(err.message)})
 
     }

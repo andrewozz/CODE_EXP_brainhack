@@ -16,6 +16,16 @@ import {
   Alert,
 } from 'react-native';
 
+const images = {
+	shoes: require("../images/shoes.png"),
+	bag: require("../images/bag.png"),
+	torch: require("../images/torch.png"),
+    knife: require("../images/knife.png"),
+	jacket: require("../images/jacket.png"),
+
+};
+const keys = ["shoes","bag", "torch",  "knife", "jacket"]
+
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 import Add from 'react-native-vector-icons/Ionicons';
@@ -26,8 +36,6 @@ import { useStore } from "../context/StoreContext";
 import { useItem } from '../context/ItemContext';
 
 
-
-
 const Storeitem = ({route,navigation}) => {
 
   const {update,setUpdate} = useStore();
@@ -36,7 +44,8 @@ const Storeitem = ({route,navigation}) => {
   const [currentQuantity,setCurrentQuantity] = useState(0);
   const [storeItem,setStoreItem] = useState(null);
   const [quantity,setQuantity] = useState(0);
-  const {campName,storeIdName} = useStore();
+  const[index,setIndex] = useState(0);
+  const {campName,storeIdName,activities,setActivities} = useStore();
 
   useEffect(()=>
   {
@@ -45,6 +54,8 @@ const Storeitem = ({route,navigation}) => {
     { 
       setStoreItem(item);
       setCurrentQuantity(item.quantity);
+      setIndex(item.itemId-1);
+      console.log(item);
     }
   
   },[])
@@ -57,17 +68,17 @@ const Storeitem = ({route,navigation}) => {
     // call axios to go to backend to update the total quantity for that particular store item selected
     axios.post("http://10.0.2.2:3005/api/inventory/update-quantity-store-item",{params: {"camp": campName, "storeId" : storeIdName, "itemId" : storeItem.itemId, "change": quantity}})
     .then((res)=> {
-        console.log("successfully edited quanity!");
         if (quantity<0) Alert.alert(`You withdrew ${-1*quantity} ${storeItem.name}!`);
         else if (quantity >0) Alert.alert(`You deposited ${quantity} ${storeItem.name}!`)
-        else
-        {
-          Alert.alert(`You did not withdraw or deposit any ${storeItem.name}! `)
-        }
+        else {Alert.alert(`You did not withdraw or deposit any ${storeItem.name}! `)}
+        
+        // add this activity to the useState variable, activities
+        let today = new Date();
+        const activity = {"name": `${storeItem.name}`, "quantity": `${quantity}`, "date": `${today.toLocaleString()}`}
+        setActivities([...activities,activity]); //append to list of activities
+        setCurrentQuantity(currentQuantity+quantity); //update quantity on ui
+        setUpdate(update+1); // represents a change where the event listener would make an axios req to get updated data
         setQuantity(0); //reset input field
-        console.log("NOW",currentQuantity+quantity)
-        setCurrentQuantity(currentQuantity+quantity);
-        setUpdate(update+1);
         
     })
     .catch((err)=> {clearForm(); Alert.alert( "something went wrong! PLease try again");console.log(err.message)})
@@ -83,9 +94,8 @@ const Storeitem = ({route,navigation}) => {
   return (
     <SafeAreaView style={styles.bg}>
         <ScrollView style={{position: "relative"}}>
-          <IconSummary onPress={()=> navigation.navigate("Summary")} name='newspaper' size={35} style={{position: "absolute", zIndex: 100, top: 15, right: 15, color: "white"}}/>
-          <Image source={require("../images/boots.jpg")} style={{width: windowWidth, resizeMode: 'cover', height: windowHeight*0.35 ,overflow: 'hidden', }}></Image>
-          {/* {console.log(item)} */}
+          <IconSummary onPress={()=> navigation.navigate("Summary")} name='newspaper' size={35} style={{position: "absolute", zIndex: 100, top: 15, right: 15, color: "darkslateblue"}}/>
+          <Image source={images[keys[index]]} style={{width: windowWidth, resizeMode: 'cover', height: windowHeight*0.35}}></Image>
           {storeItem ? 
             <View>
                 <Text style={styles.title}>{storeItem.name}</Text>
@@ -131,7 +141,6 @@ const styles = StyleSheet.create({
       fontWeight: "700",
       textAlign: "center",
       color: "white",
-      marginTop: 20,
       backgroundColor: "#483d8b",
       paddingVertical: 10,
       paddingTop :10,

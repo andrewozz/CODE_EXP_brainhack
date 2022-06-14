@@ -13,9 +13,7 @@ import {
   View,
   Alert,
 } from 'react-native';
-import Feather from 'react-native-vector-icons/Feather';
-import Ant from 'react-native-vector-icons/AntDesign';
-import Scan from 'react-native-vector-icons/AntDesign';
+
 import Homepage from 'react-native-vector-icons/AntDesign';
 import Inbox from 'react-native-vector-icons/MaterialIcons';
 import Person from 'react-native-vector-icons/Ionicons';
@@ -53,7 +51,7 @@ const Home = ({navigation, route}) => {
 
         {/* Taksbar widget with styling */}
         <View style={styles.taskbar}>
-            <Inbox name="forward-to-inbox" size={30} color="white" />
+            <Inbox onPress={()=>navigation.navigate("Activities")} name="forward-to-inbox" size={30} color="white" />
             <Homepage name="home" size={30} color="white" />
             {/* <Ant onPress={navigateScanStore} name="scan1" size={30} color="white" /> */}
             <Person onPress={navigateProfile} name="person" size={30} color="white" />

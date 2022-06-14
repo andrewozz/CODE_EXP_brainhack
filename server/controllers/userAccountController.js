@@ -69,7 +69,7 @@ const authenticateUserAccount = (req,res) =>
           }
           
           //correct pw for email acct
-          if (snapAccountInfo.password === accountDetails.password){console.log("success");return res.status(200).json({msg: "successfully logged in!", uid: accountId, name: snapAccountInfo.name});}
+          if (snapAccountInfo.password === accountDetails.password){console.log("success");return res.status(200).json({msg: "successfully logged in!", uid: accountId, name: snapAccountInfo.name, role: snapAccountInfo.role});}
           else
           {
             //wrong password entered for the email acct
