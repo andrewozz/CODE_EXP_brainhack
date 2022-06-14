@@ -3,6 +3,8 @@
 Team: cat-1-team-93
 
 BRIEF OVERVIEW
+
+
 Currently, most inventory tracking in NS is done physically via pen and paper which is highly inefficient. To solve this, we propose a mobile application that will make inventory tracking and ordering more efficient and convenient for all. 
 
 Our first stakeholder is the 'user' which comprise normal NS men who might need to access the store. The 'user' will have basic access to the store after gaining permission from the inventory keeper and can help to update the inventory straight away.
