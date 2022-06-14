@@ -16,6 +16,7 @@ import {
   TextInput,
   View,
   Alert,
+  StackActions,
 } from 'react-native';
 
 //importing components
@@ -58,13 +59,13 @@ const ScanStore = ({navigation}) => {
         clearForm(); 
     
         })
-        .catch((err) => {alert("smth went wrong! Please try again!");clearForm();} )
+        .catch((err) => {alert("Something went wrong! Please try again!");clearForm();} )
 
 
     }
 
     // Navigations
-    const navigateHome = () => navigation.navigate("Home");
+    const navigateHome = () => navigation.pop();
     const navigateProfile = () => navigation.navigate("Profile")
     const navigateStore = () => navigation.navigate("Scan Select Store")
 
@@ -83,7 +84,7 @@ const ScanStore = ({navigation}) => {
                     style={styles.input}
                     onChangeText={setCamp}
                     underlineColorAndroid="transparent"
-                    placeholder = "Camp/ Air base"
+                    placeholder = "Camp / Air base"
                     placeholderTextColor="white" 
                     value ={camp}
                     />
@@ -100,7 +101,7 @@ const ScanStore = ({navigation}) => {
                     clearButtonMode="always"
                     style={styles.input}
                     onChangeText={setPassword}
-                    placeholder = "password"
+                    placeholder = "Password"
                     underlineColorAndroid="transparent"
                     placeholderTextColor="white" 
                     secureTextEntry={true}

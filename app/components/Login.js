@@ -25,8 +25,9 @@ const Login = ({navigation}) => {
     const [isAdmin, setIsAdmin] = useState(false)
 
 
-    const navigateToLogin =() =>
+    const navigateToSignup =() =>
     {
+        clearForm();
         navigation.navigate("Signup");
     }
 
@@ -51,7 +52,7 @@ const Login = ({navigation}) => {
 
         //send email and pasword to server to authenticate user --> response returns uid and name
         axios.get("http://10.0.2.2:3005/api/users/login-user",{params: {email: email, password: password, role: role}})
-        .then((res)=> {Alert.alert(`welcome ${res.data.name}`);clearForm();navigation.navigate("Home");})
+        .then((res)=> {Alert.alert(`Welcome ${res.data.name}!`);clearForm();navigation.navigate("Home", {role: role, name: res.data.name});})
         .catch((err)=> {clearForm();Alert.alert(err.response.data);console.log(err.message)})
 
     }
@@ -78,7 +79,7 @@ const Login = ({navigation}) => {
                     clearButtonMode="always"
                     style={styles.input}
                     onChangeText={setOnChangePassword}
-                    placeholder = "password"
+                    placeholder = "Password"
                     underlineColorAndroid="transparent"
                     placeholderTextColor="white" 
                     secureTextEntry={true}
@@ -97,7 +98,12 @@ const Login = ({navigation}) => {
                             <Text style={styles.btntxt}>Login</Text>
                         </TouchableOpacity>
                     </View>
-                    <Text onPress={()=> {clearForm();navigateToLogin()}}  style={{textAlign:"center",marginTop: 3, color: "white"}}>Sign up for an account here!</Text>
+                    {/* <View style={{position:  "relative"}}>
+                        <TouchableOpacity style={styles.btn} onPress={navigateToSignup}>
+                            <Text style={styles.btntxt}>Sign Up</Text>
+                        </TouchableOpacity>
+                    </View> */}
+                    <Text onPress={()=> {clearForm();navigateToSignup()}}  style={{textAlign:"center",marginTop: 3, color: "white"}}>Sign up for an account here!</Text>
                 </View>
                 
             </SafeAreaView>

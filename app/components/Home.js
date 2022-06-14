@@ -25,12 +25,13 @@ const windowHeight = Dimensions.get('window').height;
 
 
 
-const Home = ({navigation}) => {
+const Home = ({navigation, route}) => {
 
-    const [user,setUser] = useState({name: "Andrew", msg: "welcome"})
+    // const [user,setUser] = useState({name: "XXX", msg: "welcome"})
+    const [user,setUser] = useState({name: route.params.name, msg: "welcome"})
 
-    const navigateScanStore = () => navigation.navigate("Select Store");
-    const navigateProfile = () => navigation.navigate("Profile");
+    const navigateScanStore = () => navigation.push("Select Store");
+    const navigateProfile = () => navigation.push("Profile");
    
 
     return (
