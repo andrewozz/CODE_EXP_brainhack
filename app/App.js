@@ -58,7 +58,11 @@ const App = () => {
           <NavigationContainer>
             <Stack.Navigator >
 
+<<<<<<< HEAD
             
+=======
+                {/* Main tabs for user */}
+>>>>>>> upstream/main
 
                 {/* Main tabs for user */}
                 <Stack.Screen name="Login" component={Login}/>
