@@ -59,9 +59,12 @@ const Login = ({navigation}) => {
         axios.get("http://10.0.2.2:3005/api/users/login-user",{params: {email: email, password: password, role: role}})
         .then((res)=> {Alert.alert(`welcome ${res.data.name}`);
         clearForm();
-        const userData = userInfo;
+        const userData = res.data;
+        console.log("BEFORE: ", userData)
+        userData.name = res.data.name;
         userData.uid = res.data.uid;
         userData.role = res.data.role;
+        console.log("AFTER: ", userData)
         setUserInfo(userData);
         navigation.navigate("Home");})
         .catch((err)=> {clearForm();Alert.alert(err.response.data);console.log(err.message)})
@@ -74,7 +77,7 @@ const Login = ({navigation}) => {
         <ScrollView>
             <SafeAreaView
                 contentInsetAdjustmentBehavior="automatic"
-                style ={styles.bg}
+                style ={[styles.bg,{display:"flex", flexDirection:"column"}]}
                 >
                 <View style={styles.card}>
                     <TextInput
@@ -116,6 +119,12 @@ const Login = ({navigation}) => {
                     </View> */}
                     <Text onPress={()=> {clearForm();navigateToSignup()}}  style={{textAlign:"center",marginTop: 3, color: "white"}}>Sign up for an account here!</Text>
                 </View>
+
+                <View>
+                    <TouchableOpacity style={[styles.btn,styles.singpass]}>
+                        <Text style={styles.btntxt}>Singpass Login</Text>
+                    </TouchableOpacity>
+                </View>
                 
             </SafeAreaView>
         </ScrollView>
@@ -126,10 +135,10 @@ const styles = StyleSheet.create({
     bg:
     {
         display: "flex",
-        flexDirection: "row",
-        justifyContent : "center",
+        flexDirection: "row",            
         alignItems: "center",
         backgroundColor: "#EDECF3",
+        height: windowHeight,
     },
     card:{
         backgroundColor: "#483d8b",
@@ -178,6 +187,16 @@ const styles = StyleSheet.create({
     selectedtxt:
     {
         color: "#483d8b",
+    },
+    singpass:
+    {
+        backgroundColor: "red",
+        marginTop :20,
+        borderRadius: 6,
+        width :windowWidth*0.75,
+        paddingHorizontal: 10,
+        paddingVertical :12,
+
     }
 })
 

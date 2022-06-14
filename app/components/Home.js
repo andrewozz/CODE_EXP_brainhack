@@ -20,16 +20,23 @@ import Person from 'react-native-vector-icons/Ionicons';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
+import { useAuth } from "../context/AuthContext";
 
 
 
-const Home = ({navigation, route}) => {
+const Home = ({navigation}) => {
 
-    const [user,setUser] = useState({name: "XXX", msg: "welcome"})
-    // const [user,setUser] = useState({name: route.params.name, msg: "welcome"})
+    const [name,setName] = useState("")
+    const {userInfo} = useAuth();
 
-    const navigateScanStore = () => navigation.push("Select Store");
-    const navigateProfile = () => navigation.push("Profile");
+    useEffect(()=>
+    {
+        const nameGiven = userInfo.name; 
+        setName(nameGiven);
+    },[])
+    
+    const navigateScanStore = () => navigation.navigate("Select Store");
+    const navigateProfile = () => navigation.navigate("Profile");
    
 
     return (
@@ -38,7 +45,7 @@ const Home = ({navigation, route}) => {
             <ImageBackground source={require("../images/soldiers.jpg") } imageStyle={{borderRadius: 7}} style={styles.headercard}>
                 <View style={styles.translucentBg}></View>
                 <View style ={{display: "flex", flexDirection: "column", alignItems:"center", justifyContent: "center",height: "100%", zIndex: 10, marginTop: 20,}}>
-                    <Text style={{fontSize: 35, color: "white", fontWeight: "600", textAlign: "center", zIndex: 10}}>Welcome {user.name}</Text>
+                    <Text style={{fontSize: 35, color: "white", fontWeight: "600", textAlign: "center", zIndex: 10}}>Welcome {name}</Text>
                     <TouchableOpacity style={styles.btn} onPress={navigateScanStore}>
                                 <Text style={styles.btntxt}>Select Store</Text>
                     </TouchableOpacity>
@@ -51,9 +58,8 @@ const Home = ({navigation, route}) => {
 
         {/* Taksbar widget with styling */}
         <View style={styles.taskbar}>
-            <Inbox onPress={()=>navigation.navigate("Activities")} name="forward-to-inbox" size={30} color="white" />
+            <Inbox name="forward-to-inbox" onPress={()=>navigation.navigate("Activities")} size={30} color="white" />
             <Homepage name="home" size={30} color="white" />
-            {/* <Ant onPress={navigateScanStore} name="scan1" size={30} color="white" /> */}
             <Person onPress={navigateProfile} name="person" size={30} color="white" />
         </View>
     </SafeAreaView>
