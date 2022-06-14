@@ -38,6 +38,8 @@ import { useItem } from '../context/ItemContext';
 
 const Storeitem = ({route,navigation}) => {
 
+  const event = route.params.event;
+
   const {update,setUpdate} = useStore();
   const {itemInfo,setItemInfo} = useItem();
 
@@ -49,7 +51,7 @@ const Storeitem = ({route,navigation}) => {
 
   useEffect(()=>
   {
-    const item = route.params;
+    const item = route.params.item;
     if (item !== undefined)
     { 
       setStoreItem(item);
@@ -91,6 +93,8 @@ const Storeitem = ({route,navigation}) => {
   const add = () => setQuantity(quantity+1);
   const minus = () => setQuantity(quantity-1);
 
+  const [confirmOrder, setConfirmOrder] = useState('');
+
   return (
     <SafeAreaView style={styles.bg}>
         <ScrollView style={{position: "relative"}}>
@@ -103,19 +107,37 @@ const Storeitem = ({route,navigation}) => {
                 <Text style ={styles.h5}>{storeItem.description}</Text>
                 <View style={{display: "flex",flexDirection: "column", alignItems: "center"}}>
                   <View style={[styles.card,{display: "flex",flexDirection: "column", alignItems: "center"}]}>
-                    <View style={{display: "flex",flexDirection: "row", justifyContent: "space-around", marginBottom: 15}}>
-                      <TouchableOpacity style={[styles.arithmetic,{marginHorizontal: 15}]} onPress={add}>
-                        <Add name='add-circle-outline' size = {35} color ="white"></Add>
-                      </TouchableOpacity>
-                      <Text style={{fontSize: 25, color:  "white", marginHorizontal: 10}}>{quantity}</Text>
-                      <TouchableOpacity style={[styles.arithmetic,{paddingTop: 2, marginHorizontal: 15}]} onPress={minus}>
-                        <Minus name="minus-circle" size={30} color= "white" style={{margin: 0}}></Minus>
-                      </TouchableOpacity>
-
-                    </View>
-                    <TouchableOpacity style={styles.btn} onPress={handleConfirm}>
-                        <Text style={styles.btntxt}  >Confirm</Text>
+                    {!confirmOrder ? 
+                    (<View style={{display: "flex",flexDirection: "row", justifyContent: "space-around", marginBottom: 15}}>
+                    <TouchableOpacity style={[styles.arithmetic,{marginHorizontal: 15}]} onPress={add}>
+                      <Add name='add-circle-outline' size = {35} color ="white"></Add>
                     </TouchableOpacity>
+                    <Text style={{fontSize: 25, color:  "white", marginHorizontal: 10}}>{quantity}</Text>
+                    <TouchableOpacity style={[styles.arithmetic,{paddingTop: 2, marginHorizontal: 15}]} onPress={minus}>
+                      <Minus name="minus-circle" size={30} color= "white" style={{margin: 0}}></Minus>
+                    </TouchableOpacity>
+                    </View>)
+                    : (<View></View>)}
+                    {event === 'change' ? 
+                    (<TouchableOpacity style={styles.btn} onPress={handleConfirm}>
+                        <Text style={styles.btntxt}  >Confirm</Text>
+                    </TouchableOpacity>)
+                    : event === 'order' ?
+                    (<View style={{marginTop: -10, width: '100%'}}>
+                      <Text style ={styles.price}>Price: $10.99/pc</Text>
+                      {confirmOrder ? (<Text style ={styles.price}>Order Quantity: {quantity}</Text>):(<View></View>)}
+                      <Text style ={styles.price}>Total Charge: ${quantity * 10.99}</Text>
+                      {confirmOrder === 'urgent'?(<View></View>):
+                      (<TouchableOpacity style={[styles.btn,{width:'100%',marginTop:5,paddingVertical:2}]} onPress={()=>{setConfirmOrder('order')}}>
+                      <Text style={styles.btntxt}>{confirmOrder? 'CONFIRM ': ''}ORDER</Text>
+                    </TouchableOpacity>)}
+                    {confirmOrder === 'order'?(<View></View>):
+                      (<TouchableOpacity style={[styles.btn,{width:'100%',marginTop:5,paddingVertical:2},styles.red]} onPress={()=>{setConfirmOrder('urgent')}}>
+                        <Text style={styles.btntxt}>{confirmOrder? 'CONFIRM ': ''}URGENT ORDER</Text>
+                      </TouchableOpacity>)}
+                    </View>)
+                    :(<Text>Invalid!</Text>)}
+                    
                   </View>
                 </View>
             </View> 
@@ -163,6 +185,12 @@ const styles = StyleSheet.create({
     paddingHorizontal :10,
     paddingVertical: 10,
   },
+  price: {
+    color: "white",
+    fontWeight: "500",
+    fontSize: 17,
+    textAlign :"center",
+  },
   text: {
       color: "white",
       fontSize: 18,
@@ -192,6 +220,9 @@ const styles = StyleSheet.create({
         textAlign: "center",
         color: "white",
         fontSize: 18,
+    },
+    red: {
+      backgroundColor: '#ff5454',
     },
 })
 
