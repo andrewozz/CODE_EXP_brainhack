@@ -128,11 +128,11 @@ const Storeitem = ({route,navigation}) => {
                       {confirmOrder ? (<Text style ={styles.price}>Order Quantity: {quantity}</Text>):(<View></View>)}
                       <Text style ={styles.price}>Total Charge: ${quantity * 10.99}</Text>
                       {confirmOrder === 'urgent'?(<View></View>):
-                      (<TouchableOpacity style={[styles.btn,{width:'100%',marginTop:5,paddingVertical:2}]} onPress={()=>{setConfirmOrder('order')}}>
+                      (<TouchableOpacity style={[styles.btn,{width:'100%',marginTop:5,paddingVertical:2}]} onPress={()=>{confirmOrder ? navigation.navigate("Order Placed"):setConfirmOrder('order')}}>
                       <Text style={styles.btntxt}>{confirmOrder? 'CONFIRM ': ''}ORDER</Text>
                     </TouchableOpacity>)}
                     {confirmOrder === 'order'?(<View></View>):
-                      (<TouchableOpacity style={[styles.btn,{width:'100%',marginTop:5,paddingVertical:2},styles.red]} onPress={()=>{setConfirmOrder('urgent')}}>
+                      (<TouchableOpacity style={[styles.btn,{width:'100%',marginTop:5,paddingVertical:2},styles.red]} onPress={()=>{confirmOrder ? navigation.navigate("Order Placed"):setConfirmOrder('urgent')}}>
                         <Text style={styles.btntxt}>{confirmOrder? 'CONFIRM ': ''}URGENT ORDER</Text>
                       </TouchableOpacity>)}
                     </View>)
