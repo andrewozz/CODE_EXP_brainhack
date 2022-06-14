@@ -29,6 +29,10 @@ import Storeitem from './components/Storeitem';
 import Summary from './components/Summary';
 import Activities from './components/Activities';
 
+//IKcomponents
+import Manage from './IKcomponents/Manage';
+import Inventory from './IKcomponents/Inventory';
+import OrderPlaced from './IKcomponents/OrderPlaced';
 
 //notification components
 import LoadingNotification from './components/LoadingNotification';
@@ -42,7 +46,6 @@ import { StoreProvider } from './context/StoreContext';
 //navigation 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import OrderPlaced from './components_ik/OrderPlaced';
 const Stack = createNativeStackNavigator();
 
 
@@ -55,8 +58,9 @@ const App = () => {
           <NavigationContainer>
             <Stack.Navigator >
 
-                {/* Main tabs for user */}
+            
 
+                {/* Main tabs for user */}
                 <Stack.Screen name="Login" component={Login}/>
                 <Stack.Screen name="Signup" component={Signup} />
                 <Stack.Screen name="Home" component={Home} />
@@ -67,6 +71,11 @@ const App = () => {
                 <Stack.Screen name="Store Items" component={Storeitems} />
                 <Stack.Screen name="Store Item" component={Storeitem} />
 
+                {/* Main tabs for IK */}
+                <Stack.Screen name="Manage" component={Manage}/>
+                <Stack.Screen name="Inventory" component={Inventory}/>
+                <Stack.Screen name="Order Placed" component={OrderPlaced}/>
+                
 
                 {/* Sub-tabs/ Notifications */}
                 <Stack.Screen name="Loading" options={{ title: 'Requesting Permission' }} component={LoadingNotification} />

@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from 'react';
-import axios from "axios"
+import axios from "axios";
 import {
   SafeAreaView,
   ScrollView,
@@ -74,7 +74,7 @@ const Storeitems = ({navigation}) => {
     const showItem = (item) =>
     {
         console.log(item)
-        navigation.navigate({name : "Store Item", params: item});
+        navigation.navigate({name : "Store Item", params: {item, event: 'change'}});
     }
 
     return (
