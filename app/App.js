@@ -42,6 +42,7 @@ import { StoreProvider } from './context/StoreContext';
 //navigation 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import OrderPlaced from './components_ik/OrderPlaced';
 const Stack = createNativeStackNavigator();
 
 
@@ -55,6 +56,8 @@ const App = () => {
             <Stack.Navigator >
 
                 {/* Main tabs for user */}
+                <Stack.Screen name="Order Placed" component={OrderPlaced}/>
+
                 <Stack.Screen name="Login" component={Login}/>
                 <Stack.Screen name="Signup" component={Signup} />
                 <Stack.Screen name="Home" component={Home} />
