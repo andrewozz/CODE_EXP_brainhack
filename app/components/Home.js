@@ -58,9 +58,8 @@ const Home = ({navigation}) => {
 
         {/* Taksbar widget with styling */}
         <View style={styles.taskbar}>
-            <Inbox name="forward-to-inbox" size={30} color="white" />
+            <Inbox name="forward-to-inbox" onPress={()=>navigation.navigate("Activities")} size={30} color="white" />
             <Homepage name="home" size={30} color="white" />
-            {/* <Ant onPress={navigateScanStore} name="scan1" size={30} color="white" /> */}
             <Person onPress={navigateProfile} name="person" size={30} color="white" />
         </View>
     </SafeAreaView>
