@@ -17,5 +17,7 @@ We believe that our inventory keeping application will bring greater convenience
 Under the select store page, enter the following fields to enter store =>
 
 Camp/ Air base : camp1
+
 Store ID: 0001
+
 Password: password
