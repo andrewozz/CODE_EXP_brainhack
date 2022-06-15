@@ -13,6 +13,10 @@ Our second and third stakeholders are the inventory keepers and the auditors or 
 
 We believe that our inventory keeping application will bring greater convenience to all stakeholders involved in addition to greater accountability with regards to inventory tracking and order requests.
 
+
+## LOGIN
+To login to our app, you must first have a registered and authenticated account with us, so do sign up an account and use it to login.
+
 ## SAMPLE Store ID and Passcode that you can use to enter a store (data regarding the store is also hosted on firebase realtim db so you will be able to view the updated data on the app) 
 Under the select store page, enter the following fields to enter store =>
 
