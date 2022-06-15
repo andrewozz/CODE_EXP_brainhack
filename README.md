@@ -2,8 +2,10 @@
 
 Team: cat-1-team-93
 
-BRIEF OVERVIEW
+## Link to Video Demo of our application
+https://drive.google.com/drive/folders/1SQWeBGa6jB-HIHDnZKbtZDje4SlQKT_3?usp=sharing
 
+## BRIEF OVERVIEW
 
 Currently, most inventory tracking in NS is done physically via pen and paper which is highly inefficient. To solve this, we propose a mobile application that will make inventory tracking and ordering more efficient and convenient for all. 
 
