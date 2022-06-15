@@ -1,4 +1,4 @@
-## Brainhack React Native mobile application
+## Brainhack React Native mobile application (CODE_EXP)
 
 Team: cat-1-team-93
 
