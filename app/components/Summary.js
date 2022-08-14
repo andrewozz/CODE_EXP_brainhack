@@ -36,17 +36,17 @@ const Summary = ({navigation}) => {
     axios.post("http://10.0.2.2:3005/api/inventory/update-user-activities",{params: {"camp": campName, "storeId" : storeIdName, "activities": activities, "uid": userInfo.uid }})
     .then((res)=> {
       console.log("successfully updated activities");
-      navigation.navigate("Loading2")
-        
+
     })
     .catch((err)=> {Alert.alert("smth went wrong! Please try again!");console.log(err.message)})
-
-
+    
+    
     //update the db with the updated activities/transactions
-
-
+    
+    
     //reset activities to empty list [] for next store entry after successfully updated db activtiies
     setActivities([])
+    navigation.navigate("Loading2")
   }
 
 
@@ -71,7 +71,7 @@ const Summary = ({navigation}) => {
         </View>
         <View style={{marginTop: 20}}>
           <TouchableOpacity style={styles.btn} >
-                <Text style={styles.btntxt} onPress={handleCheckOut}>Checkout</Text>
+                <Text style={styles.btntxt} onPress={handleCheckOut}>Leave store</Text>
           </TouchableOpacity>
         </View>
     </SafeAreaView>

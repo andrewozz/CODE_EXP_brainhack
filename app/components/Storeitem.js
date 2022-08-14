@@ -22,9 +22,22 @@ const images = {
 	torch: require("../images/torch.png"),
     knife: require("../images/knife.png"),
 	jacket: require("../images/jacket.png"),
+};
+const images2 = {
+	shoes: require("../images/shoes.png"),
+    cream: require("../images/cream.png"),
+	torch: require("../images/torch.png"),
+	knife: require("../images/knife.png"),
+    jacket: require("../images/jacket.png"),
+    shirt: require("../images/shirt.png"),
+    shorts: require("../images/shorts.png"),
+
 
 };
+
 const keys = ["shoes","bag", "torch",  "knife", "jacket"]
+const keys2 = ["shoes","cream", "torch", "knife", "jacket",  "shirt", "shorts"];
+
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -34,12 +47,16 @@ import IconSummary from 'react-native-vector-icons/Ionicons';
 import { IconBase } from 'react-icons';
 import { useStore } from "../context/StoreContext";
 import { useItem } from '../context/ItemContext';
+import { useAuth } from "../context/AuthContext";
+
 
 
 const Storeitem = ({route,navigation}) => {
 
   const {update,setUpdate} = useStore();
   const {itemInfo,setItemInfo} = useItem();
+  const {userInfo} = useAuth();
+
 
   const [currentQuantity,setCurrentQuantity] = useState(0);
   const [storeItem,setStoreItem] = useState(null);
@@ -66,7 +83,7 @@ const Storeitem = ({route,navigation}) => {
   {
 
     // call axios to go to backend to update the total quantity for that particular store item selected
-    axios.post("http://10.0.2.2:3005/api/inventory/update-quantity-store-item",{params: {"camp": campName, "storeId" : storeIdName, "itemId" : storeItem.itemId, "change": quantity}})
+    axios.post("http://10.0.2.2:3005/api/inventory/update-quantity-store-item",{params: {"camp": campName, "storeId" : storeIdName, "itemId" : storeItem.itemId, "change": quantity,"userInfo" :userInfo, "itemName" : storeItem.name, "date": `${Date().toLocaleString()}`}})
     .then((res)=> {
         if (quantity<0) Alert.alert(`You withdrew ${-1*quantity} ${storeItem.name}!`);
         else if (quantity >0) Alert.alert(`You deposited ${quantity} ${storeItem.name}!`)
@@ -79,6 +96,8 @@ const Storeitem = ({route,navigation}) => {
         setCurrentQuantity(currentQuantity+quantity); //update quantity on ui
         setUpdate(update+1); // represents a change where the event listener would make an axios req to get updated data
         setQuantity(0); //reset input field
+
+        
         
     })
     .catch((err)=> {clearForm(); Alert.alert( "something went wrong! PLease try again");console.log(err.message)})
@@ -94,7 +113,7 @@ const Storeitem = ({route,navigation}) => {
   return (
     <SafeAreaView style={styles.bg}>
         <ScrollView style={{position: "relative"}}>
-          <IconSummary onPress={()=> navigation.navigate("Summary")} name='newspaper' size={35} style={{position: "absolute", zIndex: 100, top: 15, right: 15, color: "darkslateblue"}}/>
+          <IconSummary onPress={()=> navigation.navigate("Summary")} name='exit' size={45} style={{position: "absolute", zIndex: 100, top: 10, right: 10, color: "darkslateblue"}}/>
           <Image source={images[keys[index]]} style={{width: windowWidth, resizeMode: 'cover', height: windowHeight*0.35}}></Image>
           {storeItem ? 
             <View>

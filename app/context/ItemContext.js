@@ -8,8 +8,6 @@ export const ItemProvider = (props) => {
     
     const [itemInfo,setItemInfo] = useState({});
 
-    
-
     return (
             <ItemContext.Provider value={{itemInfo,setItemInfo}}>
                 {props.children}

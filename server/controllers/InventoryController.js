@@ -125,8 +125,9 @@ const findRelativePath = async (camp,storeId) =>
 
 const updateStoreItemQuantity = async (req,res) =>
 {
-    const {camp, storeId, itemId, change} = req.body.params;
-    console.log(camp,storeId,itemId,change);
+    const {camp, storeId, itemId, change, userInfo, itemName,date} = req.body.params;
+    const {uid,name} = userInfo;
+    console.log(req.body.params);
     const keys = await findRelativePath(camp,storeId);
     const userRef = ref(rtimeDb, `Invent/data/${keys.campKey}/storeData/${keys.storeKey}/storeItems/${itemId-1}`);
     console.log(keys);
@@ -145,6 +146,7 @@ const updateStoreItemQuantity = async (req,res) =>
       })
       .then(() => {
         console.log("success",item.quantity + change);
+        updateStoreActivities(uid,name,camp,storeId,itemId,itemName,change,date);
         res.status(200).json("successfully updated quantity")
       })
       .catch((error) => {
@@ -152,6 +154,31 @@ const updateStoreItemQuantity = async (req,res) =>
     });
 }
 
+const updateStoreActivities = (uid,name,camp,storeId,itemId,itemName,change,date) => 
+{
+
+    //key for unique storeID in a camp 
+    const key = camp+storeId;
+    const activityRecord ={uid,name,itemName,change,date}
+
+    const StoreRef = ref(rtimeDb,`StoreActivities/${key}`)
+    try{
+        if (change!=0)
+        {
+            push(StoreRef,activityRecord)
+        }
+        else
+        {
+            console.log("nth was updated since change in quantity is 0!")
+        }
+    }
+    catch
+    {
+        throw new Error("unable to update store activities!")
+    }
+      
+
+}
 
 const updateUserActivities = async(req,res) =>
 {
@@ -210,8 +237,45 @@ const getAllUserActivities = (req,res) =>
     return;
 }
 
+const getAllStoreActivities = (req,res)=>
+{
+    const {camp,storeId} = req.query;
+    const key = camp + storeId;
+    console.log(key)
+
+    // get request to firebase db to fetch all the store activities
+
+
+
+    const storeRef = ref(rtimeDb,`StoreActivities/${key}/`)
+    const records = [];
+    get(storeRef)
+    .then((snapshot)=>
+    {
+        console.log("getting all records for this store!")
+        console.log(snapshot.val());
+        snapshot.forEach((snap)=>
+        {
+            console.log("______")
+            console.log(snap.val());
+            records.push(snap.val())
+        })
+        console.log( "records here")
+        res.status(200).json(records);
+        
+    }
+    )
+    .catch((err)=>
+    {
+        console.log(err);
+        res.status(400).json(err)
+    })
+
+}
+
 module.exports = {authenticateStoreEntry, 
                     getAllStoreItems,
                     updateStoreItemQuantity,
                     updateUserActivities,
-                    getAllUserActivities}
+                    getAllUserActivities,
+                    getAllStoreActivities}

@@ -17,6 +17,7 @@ const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 import { useAuth } from "../context/AuthContext";
 
+import UserFlow from '../UserFlow';
 
 const Login = ({navigation}) => {
 
@@ -66,6 +67,23 @@ const Login = ({navigation}) => {
         userData.role = res.data.role;
         console.log("AFTER: ", userData)
         setUserInfo(userData);
+
+        //depending on role -> navigate to the correct user flow
+        if (userData.role === "user")
+        {
+            navigation.navigate("UserFlow");
+
+        }
+        else if (userData.role === "admin")
+        {
+            navigation.navigate("AdminFlow");
+        }
+        else
+        {
+            throw new Error("invalid user type!")
+        }
+
+
         navigation.navigate("Home");})
         .catch((err)=> {clearForm();Alert.alert(err.response.data);console.log(err.message)})
 

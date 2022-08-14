@@ -43,6 +43,10 @@ import { StoreProvider } from './context/StoreContext';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import OrderPlaced from './components_ik/OrderPlaced';
+
+import UserFlow from './UserFlow';
+import AdminFlow from './AdminFlow';
+
 const Stack = createNativeStackNavigator();
 
 
@@ -53,29 +57,17 @@ const App = () => {
         <StoreProvider>
 
           <NavigationContainer>
-            <Stack.Navigator >
+            <Stack.Navigator screenOptions={{
+                headerShown: false
+              }} >
 
-                {/* Main tabs for user */}
-
+                {/* Main tabs for user auth*/}
                 <Stack.Screen name="Login" component={Login}/>
                 <Stack.Screen name="Signup" component={Signup} />
-                <Stack.Screen name="Home" component={Home} />
-                <Stack.Screen name="Profile" component={Profile} />
-                <Stack.Screen name = "Activities" component={Activities}/>
-                <Stack.Screen name="Select Store" component={ScanStore} />
-                <Stack.Screen name="Summary" component={Summary} />
-                <Stack.Screen name="Store Items" component={Storeitems} />
-                <Stack.Screen name="Store Item" component={Storeitem} />
 
-
-                {/* Sub-tabs/ Notifications */}
-                <Stack.Screen name="Loading" options={{ title: 'Requesting Permission' }} component={LoadingNotification} />
-                <Stack.Screen name="Loading2" options={{ title: 'Requesting Permission' }} component={LoadingNotification2} />
-                <Stack.Screen name="ApprovalNotification" options={{ title: 'Notification' }} component={ApprovalNotification} />
-
-
-
-
+                {/* nested stacks for user and admin respectively */}
+                <Stack.Screen name="UserFlow" component={UserFlow} />
+                <Stack.Screen name="AdminFlow" component={AdminFlow} />
 
             </Stack.Navigator>
           </NavigationContainer>

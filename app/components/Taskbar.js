@@ -31,7 +31,6 @@ const Taskbar = ({navigateHome, navigateStore, navigateProfile}) => {
         <View style={styles.taskbar}>
             <Inbox name="forward-to-inbox" size={30} color="white" />
             <Homepage name="home" onPress={navigateHome} size={30} color="white" />
-            {/* <Ant onPress={navigateStore} name="scan1" size={30} color="white" /> */}
             <Person onPress={navigateProfile} name="person" size={30} color="white" />
         </View>
     </View>

@@ -1,6 +1,6 @@
 const express = require("express");
 const { authenticateStoreEntry, getAllStoreItems, 
-    updateStoreItemQuantity,updateUserActivities,getAllUserActivities} = require("../controllers/InventoryController.js");
+    updateStoreItemQuantity,updateUserActivities,getAllUserActivities,getAllStoreActivities} = require("../controllers/InventoryController.js");
 let router = express.Router();
 
 
@@ -18,6 +18,9 @@ router.get("/get-all-user-activities",getAllUserActivities);
 
 //5. update the recent activities for a user -> particular camp and store 
 router.post("/update-user-activities",updateUserActivities);
+
+//6. get all store activities for a specific store in a camp
+router.get("/get-all-store-activities",getAllStoreActivities);
 
 
 
