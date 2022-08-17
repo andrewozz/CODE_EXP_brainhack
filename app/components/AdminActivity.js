@@ -55,10 +55,10 @@ const AdminActivity = ({navigation}) => {
               return (
                 <View style={styles.activity}>
                   <View style={{width: "75%"}}>
-                    <Text style={styles.txt}><Text style={{fontWeight: "900"}}>Date</Text>: {activity.date}</Text>
-                    <Text  style={styles.txt}><Text style={{fontWeight: "900"}}>Item: </Text>{activity.itemName}</Text>
-                    <Text  style={styles.txt}><Text style={{fontWeight: "900"}}>Name of personnel</Text>: {activity.name}</Text>
-                    <Text  style={styles.txt}><Text style={{fontWeight: "900"}}>User Id of personnel:</Text> {activity.uid}</Text>
+                    <Text style={styles.txt}><Text style={{fontWeight: "900"}}>Time: </Text> {activity.date}</Text>
+                    <Text  style={styles.txt}><Text style={{fontWeight: "900"}}>Item Name: </Text>{activity.itemName}</Text>
+                    <Text  style={styles.txt}><Text style={{fontWeight: "900"}}>Name of personnel: </Text> {activity.name}</Text>
+                    <Text  style={styles.txt}><Text style={{fontWeight: "900"}}>User ID of personnel:</Text> {activity.uid}</Text>
                     <Text  style={[styles.txt, {fontWeight: "900"}]}>{activity.change < 0 ? `Qty Taken: ${-1*activity.change}` :  `Qty Deposited: ${activity.change}`}</Text>
                   
                   </View>

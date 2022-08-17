@@ -74,7 +74,7 @@ const OrderItem = ({item}) => {
 
                 <Modal animationType="fade" transparent={true} visible={showModal}>
 
-                    <View style={[styles.centeredView,{paddingHorizontal: 5, paddingVertical: 20,backgroundColor: "rgba(0,0,0,0.5)"}]} blurRadius = {100} >
+                    <View style={[styles.centeredView,{paddingHorizontal: 5, paddingVertical: 20,backgroundColor: "rgba(0,0,0,0.65)"}]} blurRadius = {100} >
                         <View style={[styles.modalView,{paddingHorizontal: 20, paddingVertical: 40,}]}>
 
                             {/* insert close modal icon */}

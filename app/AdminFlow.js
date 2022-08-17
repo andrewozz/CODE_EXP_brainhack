@@ -42,7 +42,6 @@ import { StoreProvider } from './context/StoreContext';
 //navigation 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import OrderPlaced from './components_ik/OrderPlaced';
 import Home2 from './components/HomeAdmin';
 import StoreActivities from './components/StoreActivities';
 import ManageStore from './components/ManageStore';

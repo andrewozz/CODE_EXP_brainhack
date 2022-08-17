@@ -1,9 +1,11 @@
-## Brainhack React Native mobile application
+## Brainhack React Native mobile application (CODE_EXP)
 
 Team: cat-1-team-93
 
-BRIEF OVERVIEW
+## Link to Video Demo of our application
+https://drive.google.com/drive/folders/1SQWeBGa6jB-HIHDnZKbtZDje4SlQKT_3?usp=sharing
 
+## BRIEF OVERVIEW
 
 Currently, most inventory tracking in NS is done physically via pen and paper which is highly inefficient. To solve this, we propose a mobile application that will make inventory tracking and ordering more efficient and convenient for all. 
 
@@ -12,3 +14,17 @@ Our first stakeholder is the 'user' which comprise normal NS men who might need 
 Our second and third stakeholders are the inventory keepers and the auditors or those in the headquarters. Using our mobile application, inventory keepers can send order requests directly to the HQ via the application. There will be electronic records of the orders which can be exported by the HQ into their own internal system and the orders can be updated by both the HQ the inventory keeper to properly track the orders.
 
 We believe that our inventory keeping application will bring greater convenience to all stakeholders involved in addition to greater accountability with regards to inventory tracking and order requests.
+
+
+## LOGIN
+To login to our app, you must first have a registered and authenticated account with us, so do sign up an account and use it to login.
+
+## SAMPLE Store ID and Passcode that you can use to enter a store 
+
+Under the select store page, enter the following fields to enter one of our stores =>
+
+Camp/ Air base : camp1
+
+Store ID: 0001
+
+Password: password

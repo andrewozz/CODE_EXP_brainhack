@@ -42,10 +42,10 @@ import { StoreProvider } from './context/StoreContext';
 //navigation 
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import OrderPlaced from './components_ik/OrderPlaced';
 
 import UserFlow from './UserFlow';
 import AdminFlow from './AdminFlow';
+
 
 const Stack = createNativeStackNavigator();
 
@@ -60,15 +60,11 @@ const App = () => {
             <Stack.Navigator screenOptions={{
                 headerShown: false
               }} >
-
                 {/* Main tabs for user auth*/}
                 <Stack.Screen name="Login" component={Login}/>
                 <Stack.Screen name="Signup" component={Signup} />
-
-                {/* nested stacks for user and admin respectively */}
                 <Stack.Screen name="UserFlow" component={UserFlow} />
                 <Stack.Screen name="AdminFlow" component={AdminFlow} />
-
             </Stack.Navigator>
           </NavigationContainer>
         </StoreProvider>
