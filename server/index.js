@@ -26,6 +26,9 @@ app.use("/api/users", userSettings);
 const inventory = require("./routes/inventoryRoutes");
 app.use("/api/inventory", inventory);
 
+// Order inventory-items Routes
+const order = require("./routes/orderRoutes");
+app.use("/api/order",order);
 
 app.listen(port, () => {
   console.log(`server started on ${port}`);

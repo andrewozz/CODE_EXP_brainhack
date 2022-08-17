@@ -14,11 +14,13 @@ import {
   TextInput,
   View,
   Alert,
+  Modal
 } from 'react-native';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 import { useStore } from "../context/StoreContext";
+import OrderItem from './OrderItem';
 
 
 
@@ -55,24 +57,14 @@ const AdminInventories = ({navigation}) => {
             <ScrollView style= {styles.bg}>
                 <View style={{display: "flex", flexDirection: "row", flexWrap: "wrap", paddingVertical: 10, paddingHorizontal: 15,}}>
                     
-                    {/* Each item represents an element in the items list -> item is a json object, containing the info of a particular item of that store */}
                     
                     {(items!== [] && items!== undefined ) ? items.map((item,index)=>
                     {
                         {/* Each store item is returned here */}
+                        {console.log(item)}
                         return(
                         <View style={{display:"flex", flexDirection: "column", width: "100%", paddingHorizontal: 10, paddingVertical: 15, alignItems: "center"}}>
-                            
-                            <View style={{ backgroundColor: "#D9D9D9" , display:"flex", flexDirection: "row", alignItems: "center", padding: 10, paddingHorizontal: 15,borderRadius: 15, justifyContent: "center"}}>
-                                <View style={{ backgroundColor: "#D9D9D9" , display:"flex", flexDirection: "column", alignItems: "center", width: "80%",padding: 15, borderRadius: 15}}>
-                                    <Text style={styles.title}>{item.name}</Text>
-                                    <Text style={styles.p}>Qty: {item.quantity}</Text>
-                                </View>
-                                <TouchableOpacity style={{ backgroundColor: "darkslateblue" , display:"flex",borderRadius: 5, padding :10,paddingHorizontal: 20}}>
-                                    <Text style={{color: "white"}}>Order</Text>
-                                </TouchableOpacity>
-
-                            </View>
+                            <OrderItem item={item}/>
                         </View>)
                     }): <View></View>}
                 </View>
@@ -102,5 +94,29 @@ const styles = StyleSheet.create({
 
 
     }
+    ,
+    centeredView: {
+        flex: 1,
+        justifyContent: "center",
+        alignItems: "center",
+        position:"relative"
+      },
+      modalView: {
+        width:"100%",
+        position:"absolute",
+        bottom:0,
+        backgroundColor: "white",
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+         
+        shadowColor: "#000",
+        shadowOffset: {
+          width: 0,
+          height: 2
+        },
+        shadowOpacity: 0.5,
+        shadowRadius: 4,
+        elevation: 5
+      }
 })
 export default AdminInventories
